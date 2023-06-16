@@ -1,0 +1,94 @@
+[package]
+name = "ebou"
+version = "0.2.0"
+edition = "2021"
+description = "Experimental Mastodon Client"
+
+[package.metadata.bundle]
+name = "Ebou"
+identifier = "com.stylemac.ebou"
+icon = ["icons/Icon.icns", "icons/icon-win-256.png", "icons/icon-win-32.png", "icons/icon-win-16.png"]
+version = "0.1.0"
+copyright = "Copyright (c) Benedikt Terhechte (2023). All rights reserved."
+category = "Social Network"
+short_description = "Experimental Mastodon Client"
+osx_minimum_system_version = "10.14"
+
+[lib]
+name = "ebou"
+crate-type = ["staticlib", "lib"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+dioxus = { git = "https://github.com/terhechte/dioxus.git", branch = "dioxus_macos_hacks"}
+futures-util = "0.3.21"
+reqwest = { version = "0.11", features = ["json"] }
+dotenvy_macro = "0.15.1"
+chrono = { version = "0.4", features = ["serde", "unstable-locales"]}
+numfmt = "1.0.0"
+serde = { version = "1.0.136", features = ["derive", "rc"] }
+serde_json = "1.0.79"
+html5gum = "0.5.2"
+futures-channel = "0.3.25"
+lazy_static = "*"
+rfd = "0.11.3"
+base64 = "0.21.0"
+flume = "0.10.14"
+copypasta = "0.8.1"
+id_tree = { version = "1.8.0", features = ["serde_support"] }
+window-vibrancy = "0.3.2"
+im = { version = "15.1.0", features = ["serde"] }
+urlencoding = "2.1.2"
+strum = "0.24"
+strum_macros = "0.24"
+enumset = { version = "1.0.12", features = ["serde"] }
+pure-rust-locales = "0.5.6"
+url = { version = "2.3.1", features = ["serde"] }
+linkify = "0.9.0"
+log = "0.4.17"
+itertools = "0.10.5"
+async-trait = "0.1.64"
+navicula = { git = "https://github.com/terhechte/navicula" }
+debug_panic = "0.2.1"
+
+[target."cfg(target_os = \"macos\")".dependencies]
+megalodon = { git = "https://github.com/terhechte/megalodon-rs", branch = "temporary_both"}
+tokio = { version = "1.16.1", features = ["full"] }
+dioxus-desktop = { git = "https://github.com/terhechte/dioxus.git", branch = "dioxus_macos_hacks"}
+webbrowser = "0.8.9"
+muda = { git = "https://github.com/terhechte/muda.git", branch = "macos_fixes" }
+cocoa = "0.24"
+objc = "0.2"
+cacao = { git = "https://github.com/terhechte/cacao", branch = "segmented_control_icons_toolbar" }
+image = { version = "0.24.5", features = ["jpeg"] }
+directories-next = "2.0.0"
+current_locale = "0.1.1"
+sha2 = "0.10.6"
+env_logger = "0.10.0"
+dispatch = "0.2.0"
+
+[target."cfg(target_os = \"windows\")".dependencies]
+megalodon = { git = "https://github.com/terhechte/megalodon-rs", branch = "temporary_both"}
+tokio = { version = "1.16.1", features = ["full"] }
+dioxus-desktop = { git = "https://github.com/terhechte/dioxus.git", branch = "dioxus_macos_hacks"}
+webbrowser = "0.6.0"
+muda = { git = "https://github.com/terhechte/muda.git", branch = "macos_fixes" }
+image = { version = "0.24.5", features = ["jpeg"] }
+directories-next = "2.0.0"
+current_locale = "0.1.1"
+sha2 = "0.10.6"
+env_logger = "0.10.0"
+windows = { version = "0.44.0", features = ["Win32_Foundation"]}
+winapi = "0.3.9"
+
+[target."cfg(target_arch = \"wasm32\")".dependencies]
+web-sys = { version = "0.3.60", features = ["console"] }
+js-sys = "0.3.60"
+wasm-bindgen = "0.2.83"
+wasm-bindgen-futures = "*"
+dioxus-web = { git = "https://github.com/terhechte/dioxus.git", branch = "dioxus_macos_hacks"}
+wasm-logger = "0.2.0"
+
+[profile.release]
+debug = true

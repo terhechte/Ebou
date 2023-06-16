@@ -1,0 +1,407 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=inter:300,500|kanit:700" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.bunny.net">
+</head>
+<style>
+    * {
+        font-family: 'Inter', sans-serif;
+        color: #DCD8D8;
+        font-size: 13px;
+        font-weight: 300;
+    }
+
+    html,
+    body {
+        font-family: 'Inter', sans-serif;
+        margin-top: 0px;
+        background-color: #212529;
+        color: #DCD8D8
+    }
+
+    div.container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    div.column {
+        width: 720px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    section {
+        width: 450px;
+    }
+
+    div.headline {
+        text-align: center;
+        width: 382px;
+        margin-top: -60px;
+    }
+
+    h1 {
+        font-size: 60px;
+        font-family: 'Kanit', sans-serif;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    h3 {
+        font-size: 20px;
+        font-family: 'Kanit', sans-serif;
+    }
+
+    h4 {
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    p {
+        line-height: 2;
+        font-size: 13px;
+    }
+
+    li {
+        line-height: 2;
+        margin-bottom: 15px;
+    }
+
+    .head {
+        margin-top: 30px;
+        border-radius: 32px;
+        box-shadow: 0px 0px 8px #0000007f;
+    }
+
+    a.btn {
+        border-radius: 8px;
+        background-color: #F66989;
+        border: 2px solid #F66989;
+        color: white;
+        padding: 5px;
+        padding-left: 15px;
+        padding-right: 15px;
+        text-decoration: none;
+    }
+
+    .download-buttons {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    section {
+        margin-top: 40px;
+    }
+
+    ul,
+    ol {
+        margin-left: 0px;
+        padding-left: 15px;
+        line-height: 2;
+        margin-bottom: 35px;
+    }
+
+    li {
+        list-style-position: inside;
+        text-indent: -1em;
+        padding-left: 2em;
+        line-height: 2;
+    }
+
+    .screenshot {
+        margin-bottom: 12px;
+    }
+
+    .vstack {
+        display: flex;
+        flex-direction: column;
+        align-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .hstack {
+        display: flex;
+        flex-direction: row;
+        justify-items: flex-center;
+        align-items: center;
+        align-content: center;
+        gap: 30px;
+    }
+
+    .hstack *,
+    .vstack * {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .logo-image {
+        padding: 0px;
+        margin-top: 30px;
+        display: inline-block;
+        width: 89px;
+        height: 104px;
+        background-image: url(images/logo2.png);
+        transition: background-image 1s;
+        background-repeat: no-repeat;
+        background-size: 89px 104px;
+    }
+
+    .logo-image:hover {
+        width: 89px;
+        height: 104px;
+        background-image: url(images/logo.png);
+        background-size: 89px 104px;
+        transition: background-image 1s;
+    }
+
+    section strong {
+        color: #f66989;
+    }
+
+    .download {
+        padding: 4px;
+        text-decoration: none;
+        color: white;
+        background-color: #f66989;
+        border-radius: 6px;
+
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="column">
+            <a href="images/head.jpg">
+                <img src="images/head.jpg" width="701" height="405" class="head" />
+            </a>
+            <div class="hstack">
+                <!-- <img src="images/logo.png" width="89" height="104" /> -->
+                <!-- <img src="images/logo2.png" width="89" height="104" /> -->
+                <div class="logo-image"></div>
+                <div class="vstack">
+                    <h1>Ebou</h1>
+                    <h2>A Mastodon Client with a Messenger Feel</h2>
+                </div>
+            </div>
+            <!-- <section>
+                <div class="download-buttons">
+                    <a class="btn"
+                        href="">
+                        macOS
+                    </a>
+                    <a class="btn" href="">
+                        Windows
+                    </a>
+                    <a class="btn"
+                        href="">
+                        Linux (deb)
+                    </a>
+                </div>
+            </section> -->
+
+            <section>
+
+                <a class="download" href="https://testflight.apple.com/join/7CpOOK4w">Download Ebou for macOS on
+                    Testflight</a>
+
+                <p>Ebou is a different take on the Microblogging / Mastodon experience. It groups new Toots by author
+                    and displays them in a UI not unlike modern messengers like Telegram, iMessage or WhatsApp.</p>
+
+                <p>This makes it easy to see your friends' updates at once. </p>
+
+                <p>It also has a <strong>Conversation</strong> view which helps seeing replies in the originating
+                    context.</p>
+
+                <p>Ebou is currently an experiment and therefore missing many features which you might expect from a
+                    full Mastodon client. They will be implemented over time.</p>
+            </section>
+
+            <section>
+                <h3>Help</h3>
+
+                <img src="images/example.png" width="394" height="231" />
+
+                <p>Ebou orders data in different ways.</p>
+
+                <ol>
+                    <li>
+                        <strong>Timeline:</strong> Accounts with the most recent Toots are at the top
+                    </li>
+                    <li>
+                        <strong>Account Timeline:</strong> The most recent messages are at the bottom. Ebou will try to
+                        scroll to the last Toot you saw, so that you can conveniently “Catch Up” on newer Toots of your
+                        friend
+                    </li>
+                    <li>
+                        <strong>Conversation:</strong> Conversations are also sorted chronologically ascending so that
+                        you can follow a conversation as it progressed over time
+                    </li>
+                </ol>
+
+
+                <p>
+                    Remember, this is an experiment. If you feel that this concept doesn’t work, feel free to contact me
+                    on Mastodon.
+                </p>
+
+                <h4>Scrolling to the bottom</h4>
+
+                <p>Ebou tries to always scroll to the right position in the <strong>Account Timeline</strong></p>
+
+                <p>
+                    If you tap a selection in the <strong>Timeline</strong> twice, then Ebou will automatically scroll
+                    to the bottom
+                </p>
+            </section>
+
+            </section>
+            <section>
+                <h3>Screenshots</h3>
+
+                <p>
+                    <a href="images/s1.jpg">
+                        <img src="images/s1.jpg" style='width:100%; max-width: 600px;' />
+                    </a>
+                </p><br />
+
+                <p>
+                    <a href="images/s2.jpg">
+                        <img src="images/s2.jpg" style='width:100%; max-width: 600px;' />
+                    </a>
+                </p><br />
+            </section>
+            <section>
+                <h3>FAQ</h3>
+
+                <h4>
+                    Where can I download it?
+                </h4>
+
+                <p>
+                    <a href="https://testflight.apple.com/join/7CpOOK4w">You can download it via TestFlight on macOS.
+                        Just click here.</a>
+                </p>
+
+                <h4>
+                    How do I attach a file?
+                </h4>
+
+                <p>
+                    Just drag and drop the image onto the window
+                </p>
+
+                <h4>
+                    Which platforms does it support?
+                </h4>
+
+                <p>
+                    It currently only supports macOS, but more platforms are on the horizon once the macOS version has
+                    reached a certain stability.
+                </p>
+
+                <h4>
+                    Will it be Open Source?
+                </h4>
+
+                <p>
+                    I don’t know yet. I’m working on Ebou in my spare time. I’ll see where it goes
+                </p>
+
+                <h4>
+                    What is the app icon supposed to be?
+                </h4>
+
+                <p>
+                    A baby elephant astronaut. I find baby elephants particularly cute what with their small trunks.
+                </p>
+
+                <h4>
+                    What's the meaning of the name?
+                </h4>
+
+                <p>
+                    I like it because its short and I couldn't find many other projects with a similar According to
+                    the German wikipedia, it is the old egyptian word for Elephant.
+                </p>
+
+                <h4>
+                    This website is awful.
+                </h4>
+
+                <p>
+                    Sure, but it is also a 20min hackjob and it loads fast
+                </p>
+
+            </section>
+
+            <section>
+                <h3>Current State</h3>
+
+                <h4>
+                    What Works
+                </h4>
+
+
+                <ul>
+                    <li>Timelines</li>
+                    <li>Super Minimal Notifications (only Mentions and Ebou doesn’t remember which ones you already saw)
+                    </li>
+                    <li>Posting (including Video / Image attachments)</li>
+                    <li>Drag and Drop images onto window</li>
+                    <li>Conversations</li>
+                    <li>Boost, favorite, reply, bookmark</li>
+                    <li>Lists</li>
+                    <li>Your favourites / bookmarks</li>
+                    <li>Profiles</li>
+                    <li>Settings</li>
+                    <li>Search </li>
+                    <li>Followers / Follows</li>
+                </ul>
+
+                <h4>
+                    What is planned:
+                </h4>
+
+                <ul>
+                    <li>Group by more than just users (e.g. Hashtags)</li>
+                    <li>Other notifications</li>
+                    <li>Many small UI affordances</li>
+                    <li>Messaging </li>
+                    <li>Other things I’m probably forgetting right now</li>
+                </ul>
+
+            </section>
+
+            <section>
+                <h3>Known Issues</h3>
+
+                <ul>
+                    <li>The Boosted, Replied to and Favourite counts don't always update as expected.</li>
+                    <li>The character count/limit in the post window isn't always correct.</li>
+                    <li>Ebou sometimes has problems scrolling to the correct position in a account timeline</li>
+                </ul>
+            </section>
+
+
+            <section>
+                <p>2023++ Benedikt Terhechte</p>
+                <p>
+                    <a href="https://mastodon.social/@terhechte">@mastodon.social</a>
+                </p>
+            </section>
+        </div>
+    </div>
+
+</body>
+
+</html>
