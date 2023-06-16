@@ -15,6 +15,8 @@ context.
 Ebou is currently an experiment and therefore missing some features which you might expect from a
 full Mastodon client. They will be implemented over time.
 
+You can download the current [release for macOS Testflight](https://testflight.apple.com/join/7CpOOK4w) or [in the GitHub releases](https://github.com/terhechte/Ebou/releases)
+
 ## Screenshots
 
 Full Screenshot with Conversation Tree:
