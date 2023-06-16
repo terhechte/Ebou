@@ -20,6 +20,11 @@ mod windows;
 #[cfg(target_os = "windows")]
 pub use self::windows::*;
 
+#[cfg(target_os = "linux")]
+mod linux;
+#[cfg(target_os = "linux")]
+pub use self::linux::*;
+
 pub fn is_fullscreen<'a>(window: &'a AppWindow<'a>) -> bool {
     window.fullscreen().is_some()
 }
