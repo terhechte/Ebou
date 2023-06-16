@@ -17,6 +17,8 @@ full Mastodon client. They will be implemented over time.
 
 You can download the current [release for macOS Testflight](https://testflight.apple.com/join/7CpOOK4w) or [in the GitHub releases](https://github.com/terhechte/Ebou/releases)
 
+Note: I worked on Ebou in my spare time. Please judge the code not as a professional project but more like a small side project where the outcome (a working desktop client) had higher priority than beautiful, well architected, well abstracted code.
+
 ## Screenshots
 
 Full Screenshot with Conversation Tree:
