@@ -24,6 +24,7 @@ use dioxus_desktop::{Config, LogicalSize, WindowBuilder};
 
 use super::{types, OpenWindowState};
 use crate::environment::types::AppEvent;
+use crate::style::STYLE;
 
 use crate::behaviours::{Behaviour, ChangeTextsizeBehaviour};
 
@@ -76,7 +77,7 @@ impl Environment {
         parent_handler: Rc<dyn Fn(Action)>,
     ) {
         let dom = VirtualDom::new(new_window_popup::<S>);
-        let style = include_str!("../../../public/style.css");
+        let style = STYLE;
 
         let s = LogicalSize::new(width, height);
         let builder = WindowBuilder::new()

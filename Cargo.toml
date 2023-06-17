@@ -3,6 +3,7 @@ name = "ebou"
 version = "0.2.0"
 edition = "2021"
 description = "Experimental Mastodon Client"
+build = "build.rs"
 
 [package.metadata.bundle]
 name = "Ebou"
@@ -51,6 +52,9 @@ itertools = "0.10.5"
 async-trait = "0.1.64"
 navicula = { git = "https://github.com/terhechte/navicula" }
 debug_panic = "0.2.1"
+
+[build-dependencies]
+grass = { version = "0.12.4", features = ["macro"] }
 
 [target."cfg(target_os = \"macos\")".dependencies]
 megalodon = { git = "https://github.com/terhechte/megalodon-rs", branch = "temporary_both"}
