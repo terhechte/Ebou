@@ -13,6 +13,7 @@ mod login;
 mod view_model;
 mod widgets;
 mod windows;
+mod style;
 
 pub use app::run;
 pub use environment::Instances;

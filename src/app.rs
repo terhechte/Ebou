@@ -7,6 +7,8 @@ use navicula::types::AppWindow;
 use crate::behaviours::{Behaviour, ChangeTextsizeBehaviour};
 use crate::environment::platform::default_window;
 
+use crate::style::STYLE;
+
 use dioxus_desktop::Config;
 
 pub fn run() {
@@ -28,7 +30,7 @@ pub fn run() {
         .target(env_logger::Target::Stdout)
         .init();
 
-    let style = include_str!("../public/style.css");
+    let style = STYLE;
     let script = include_str!("../public/script.js");
     let config = Config::new()
         .with_custom_head(format!(
