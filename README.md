@@ -56,7 +56,7 @@ Ebou is currently in a beta state. There're bugs, and there're missing features.
 
 ## Dioxus
 
-Ebou uses [Dioxus](https://dioxuslabs.com) as the UI library. Dioxus makes it easy to build functional cross platform apps, but it is also currently unfinished and lacking features. Some of the limitations of Dioxus are related to missing features in Dioxus.
+Ebou uses [Dioxus](https://dioxuslabs.com) as the UI library. Dioxus makes it easy to build functional cross platform apps, but it is also currently unfinished and lacking features. Some of the limitations of Ebou are related to missing features in Dioxus.
 
 One particular issue I have with Dioxus is that it uses a lot of abstractions and patterns from the React world.
 This leads to a lot of mixing of logic, model and ui domains.
