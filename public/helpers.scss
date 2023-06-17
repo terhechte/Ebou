@@ -1,0 +1,213 @@
+/* Helpers */
+
+.ms-1 {
+    margin-left: 4px;
+}
+
+.ms-2 {
+    margin-left: 8px;
+}
+
+.ms-3 {
+    margin-left: 16px;
+}
+
+.me-1 {
+    margin-right: 4px;
+}
+
+.me-2 {
+    margin-right: 8px;
+}
+
+.me-3 {
+    margin-right: 16px;
+}
+
+.ms-auto {
+    margin-left: auto;
+}
+
+.me-auto {
+    margin-right: auto;
+}
+
+.mh-1 {
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.m-1 {
+    margin: 4px;
+}
+
+.m-2 {
+    margin: 8px;
+}
+
+.m-3 {
+    margin: 16px;
+}
+
+.p-1 {
+    padding: 4px;
+}
+
+.p-2 {
+    padding: 8px;
+}
+
+.p-3 {
+    padding: 16px;
+}
+
+.pe-1 {
+    padding-right: 4px;
+}
+
+.pe-2 {
+    padding-right: 8px;
+}
+
+.pe-3 {
+    padding-right: 16px;
+}
+
+.mt-1 {
+    margin-top: 4px;
+}
+
+.mt-2 {
+    margin-top: 8px;
+}
+
+.mt-3 {
+    margin-top: 16px;
+}
+
+.mt-p10 {
+    margin-top: 10%;
+}
+
+.mt-p20 {
+    margin-top: 20%;
+}
+
+.mb-1 {
+    margin-bottom: 4px;
+}
+
+.mb-2 {
+    margin-bottom: 8px;
+}
+
+.mb-3 {
+    margin-bottom: 16px;
+}
+
+.grow {
+    flex-grow: 1;
+}
+
+.no-shrink {
+    flex-shrink: 0;
+    ;
+}
+
+.vstack {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.hstack {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-items: flex-start;
+}
+
+/* .zstack {
+    position: relative;
+    display: block;
+    flex-shrink: 0;
+}
+
+.zstack>* {
+    position: absolute;
+} */
+
+.force-single-line {
+    flex-wrap: wrap;
+    height: 1.3em;
+    overflow-y: hidden;
+}
+
+.gap-1 {
+    gap: 4px;
+}
+
+.gap-2 {
+    gap: 8px;
+}
+
+.gap-3 {
+    gap: 16px;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.justify-items-center {
+    justify-items: center;
+}
+
+.justify-items-end {
+    justify-items: flex-end;
+}
+
+.justify-self-center {
+    justify-self: center;
+    ;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.align-items-baseline {
+    align-items: baseline;
+}
+
+.align-items-end {
+    align-items: flex-end;
+}
+
+.align-self-center {
+    align-self: center;
+}
+
+.align-self-end {
+    align-self: end;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+.overflow-y-hidden {
+    overflow-y: hidden;
+}
+
+.width-100 {
+    width: 100%;
+}
+
+.height-100 {
+    height: 100%;
+}
