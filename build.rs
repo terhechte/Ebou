@@ -13,7 +13,7 @@ fn styles() -> String {
 
 #[cfg(not(debug_assertions))]
 fn styles() -> String {
-    grass::include!("../public/style.scss").to_string()
+    grass::include!("public/style.scss").to_string()
 }
 
 fn main() {
