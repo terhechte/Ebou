@@ -84,8 +84,8 @@ pub fn reduce<'a>(
                     state.selected_instance_url = None;
                     // if the user typed in a URL, try to see if it is a
                     // server
-                    if let Ok(success) = url::Url::parse(&term) {
-                        state.selected_instance_url = Some(success.as_str().to_string());
+                    if url::Url::parse(&term).is_ok() {
+                        state.selected_instance_url = Some(term);
                     } else {
                         state.is_loading = true;
                         return Effect::future(
