@@ -14,7 +14,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macOS-latest, windows-2019]
+        os: [macOS-latest, windows-2019, ubuntu-latest]
+        include:
+          - os: ubuntu-latest
+            command: sudo apt-get update && sudo apt-get install pkg-config libssl-dev libgtk-3-dev xdotool gtk3-devel gtk3 libsoup-devel webkit2gtk3-soup2-devel webkit2gtk3-devel webkit2gtk4-devel
 
     steps:
       - uses: actions/checkout@v2
