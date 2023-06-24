@@ -61,7 +61,7 @@ megalodon = { git = "https://github.com/terhechte/megalodon-rs", branch = "tempo
 tokio = { version = "1.16.1", features = ["full"] }
 dioxus-desktop = { git = "https://github.com/terhechte/dioxus.git", branch = "dioxus_macos_hacks"}
 webbrowser = "0.8.9"
-muda = { git = "https://github.com/terhechte/muda.git", branch = "macos_fixes" }
+muda = "0.6.0"
 cocoa = "0.24"
 objc = "0.2"
 cacao = { git = "https://github.com/terhechte/cacao", branch = "segmented_control_icons_toolbar" }
@@ -77,7 +77,7 @@ megalodon = { git = "https://github.com/terhechte/megalodon-rs", branch = "tempo
 tokio = { version = "1.16.1", features = ["full"] }
 dioxus-desktop = { git = "https://github.com/terhechte/dioxus.git", branch = "dioxus_macos_hacks"}
 webbrowser = "0.6.0"
-muda = { git = "https://github.com/terhechte/muda.git", branch = "macos_fixes" }
+muda = "0.6.0"
 image = { version = "0.24.5", features = ["jpeg"] }
 directories-next = "2.0.0"
 current_locale = "0.1.1"
@@ -93,6 +93,18 @@ wasm-bindgen = "0.2.83"
 wasm-bindgen-futures = "*"
 dioxus-web = { git = "https://github.com/terhechte/dioxus.git", branch = "dioxus_macos_hacks"}
 wasm-logger = "0.2.0"
+
+[target."cfg(target_os = \"linux\")".dependencies]
+megalodon = { git = "https://github.com/terhechte/megalodon-rs", branch = "temporary_both"}
+tokio = { version = "1.16.1", features = ["full"] }
+dioxus-desktop = { git = "https://github.com/terhechte/dioxus.git", branch = "dioxus_macos_hacks"}
+muda = "0.6.0"
+webbrowser = "0.6.0"
+image = { version = "0.24.5", features = ["jpeg"] }
+directories-next = "2.0.0"
+current_locale = "0.1.1"
+sha2 = "0.10.6"
+env_logger = "0.10.0"
 
 [profile.release]
 debug = true

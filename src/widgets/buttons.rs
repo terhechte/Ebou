@@ -15,6 +15,7 @@ pub fn EmojiButton(cx: Scope<'_>) -> Element<'_> {
                 button {
                     prevent_default: "onmousedown",
                     onmousedown: move |_| {
+                        #[cfg(not(target_os = "linux"))]
                         crate::environment::platform::show_emoji_popup(&window);
                     },
                     dangerous_inner_html: crate::icons::ICON_EMOJI
