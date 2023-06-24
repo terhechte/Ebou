@@ -6,7 +6,7 @@ pub use megalodon::entities::{
 };
 use megalodon::megalodon::{
     GetArrayOptions, GetArrayWithSinceOptions, GetListTimelineInputOptions,
-    GetNotificationsInputOptions, GetTimelineOptions, SearchAccountInputOptions,
+    GetNotificationsInputOptions, GetTimelineOptions, PostStatusOutput, SearchAccountInputOptions,
 };
 pub use megalodon::streaming::Message;
 use megalodon::{entities::List, megalodon::AccountFollowersInputOptions};
@@ -151,7 +151,7 @@ impl Model {
             .lock()
             .map_err(|e| format!("Poison Error {e}"))?
             .as_ref()
-            .map(|e| e.urls.streaming_api.clone())
+            .and_then(|e| e.urls.as_ref().map(|u| u.streaming_api.clone()))
             .ok_or("Could not connect to user stream: No streaming_api URL")?;
 
         let client = self.client.user_streaming(streaming_url);
@@ -437,11 +437,19 @@ impl Model {
                 visibility,
                 ..Default::default()
             };
-            self.client
+            let c = self
+                .client
                 .post_status(status, Some(&options))
                 .await
-                .map(|e| e.json)
-                .string_error("post_status")
+                .string_error("post_status")?;
+
+            match c.json {
+                PostStatusOutput::Status(s) => Ok(s),
+                // Currently, we don't support scheduled statuses
+                PostStatusOutput::ScheduledStatus(_) => {
+                    Err("Scheduled Status not supported".to_string())
+                }
+            }
         }
     }
 
@@ -744,9 +752,11 @@ pub mod mock {
             header_static: "https://files.mastodon.social/cache/accounts/avatars/109/293/508/408/537/512/original/4d3f2a1dab779b5b.jpg".to_string(),
             emojis: vec![],
             moved: None,
-            fields: None,
-            bot: None,
-            source: None
+            fields: vec![],
+            bot: false,
+            source: None,
+            discoverable: None,
+            group: None
         }, None)
     }
 
@@ -773,9 +783,11 @@ pub mod mock {
                 header_static: String::new(),
                 emojis: Vec::new(),
                 moved: None,
-                fields: None,
-                bot: None,
+                fields: vec![],
+                bot: false,
                 source: None,
+                discoverable: None,
+                group: None,
             },
             in_reply_to_id: None,
             in_reply_to_account_id: None,

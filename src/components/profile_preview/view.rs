@@ -73,13 +73,13 @@ impl std::fmt::Display for SelectedProfileTab {
 #[derive(Copy, Clone, Default, Eq, PartialEq)]
 struct ProfileTab {
     kind: SelectedProfileTab,
-    content: i32,
+    content: u32,
     selected: bool,
     dot: bool,
 }
 
 impl ProfileTab {
-    fn new(kind: SelectedProfileTab, content: i32, selected: &SelectedProfileTab) -> Self {
+    fn new(kind: SelectedProfileTab, content: u32, selected: &SelectedProfileTab) -> Self {
         ProfileTab {
             kind,
             content,
@@ -309,9 +309,9 @@ fn HiddenProfileContent<'a>(
             store: store
         }
 
-        (!show_links_small && account.fields.as_ref().map(|f|f.len()).unwrap_or_default() > 0).then(|| rsx!(VStack {
+        (!show_links_small && !account.fields.is_empty()).then(|| rsx!(VStack {
             class: "profile-fields profile-preview-addition-flex",
-            account.fields.as_ref().cloned().unwrap_or_default().iter().map(|field| rsx! {
+            account.fields.iter().map(|field| rsx! {
                 HStack {
                     class: "align-items-center",
                     field.verified_at.map(|v| rsx!(Icon {
@@ -473,9 +473,10 @@ fn ProfileActions<'a>(
                 let cloned = (*account).clone();
 
                 // build up the menu
-                let items: Vec<menu::ContextMenuItem> = account.fields.as_ref().map(|fields| fields.iter().filter_map(|item| {
+                let items: Vec<menu::ContextMenuItem> = account.fields.iter().filter_map(|item| {
                     item.link.as_ref().map(|url| menu::ContextMenuItem::item(&item.name, Public(OpenLink(url.to_string()))))
-                }).collect()).unwrap_or_default();
+                }).collect();
+
                 let mut menu = vec![
                     menu::ContextMenuItem::item("Open in Browser", Public(OpenLink(account.url.clone()))),
                     menu::ContextMenuItem::item("Copy", Public(Copy(account.url.clone()))),
