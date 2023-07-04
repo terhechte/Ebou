@@ -83,9 +83,7 @@ fn ToolbarView<'a>(cx: Scope<'a>, store: &'a ViewStore<'a>) -> Element<'a> {
         is_posting_class = "true";
     }
 
-    let current = store
-        .visibility
-        .unwrap_or(super::Visibility::Public);
+    let current = store.visibility.unwrap_or(super::Visibility::Public);
     let is_direct = current == super::Visibility::Direct;
 
     cx.render(rsx!(
@@ -127,6 +125,13 @@ fn ToolbarView<'a>(cx: Scope<'a>, store: &'a ViewStore<'a>) -> Element<'a> {
                     selected: "{is_direct}",
                     value: "direct", "Mentioned people only",
                 }
+            }
+            button {
+                class: "button me-3",
+                disabled: is_posting_class,
+                r#type: "file",
+                onclick: move |_| store.send(PostAction::FileDialog),
+                "Attach"
             }
             button {
                 class: "button me-2 highlighted",
