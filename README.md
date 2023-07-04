@@ -135,10 +135,11 @@ sudo apt-get install pkg-config libssl-dev libgtk-3-dev xdotool libwebkit2gtk-4.
 
 ### Arch
 
-``` sh
-# Untested
-pacman -S gtk3 xdotool xdotool-dev gtk3-devel, libsoup-devel, webkit2gtk3-soup2-devel, webkit2gtk3-devel, webkit2gtk4-devel
-```
+There's a AUR package for Arch Linux:
+
+[https://aur.archlinux.org/packages/ebou-git](https://aur.archlinux.org/packages/ebou-git)
+
+Thanks to [https://github.com/StandingPadAnimations](StandingPadAnimations)
 
 ### Fedora
 
