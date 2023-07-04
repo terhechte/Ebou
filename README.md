@@ -123,6 +123,31 @@ folder:
 5. This will build Ebou and replace the binary in the Xcode archive with the actual Ebou binary
 6. Go to Xcode, selected the archive in the Organizer and sign & submit it from there
 
+### Linux
+
+Linux requires a couple of additional dependencies.
+
+#### Debian
+
+``` sh
+sudo apt-get install pkg-config libssl-dev libgtk-3-dev xdotool libwebkit2gtk-4.1-dev libgtk-3-0 libgtk-3-dev
+```
+
+### Arch
+
+There's a AUR package for Arch Linux:
+
+[https://aur.archlinux.org/packages/ebou-git](https://aur.archlinux.org/packages/ebou-git)
+
+Thanks to [https://github.com/StandingPadAnimations](StandingPadAnimations)
+
+### Fedora
+
+``` sh
+# Untested
+dnf install pkg-config openssl-devel gtk3 gtk3-devel webkit2gtk4.1-devel xdotool xdotool-devel
+```
+
 ## License
 
 Ebou is licensed under the [GPL License](LICENSE)
