@@ -24,14 +24,14 @@ pub struct AccountViewModel {
     pub joined_full: String,
     pub joined: DateTime<Utc>,
     pub url: String,
-    pub followers: i32,
+    pub followers: u32,
     pub followers_str: String,
-    pub following: i32,
+    pub following: u32,
     pub following_str: String,
-    pub statuses: i32,
+    pub statuses: u32,
     pub statuses_str: String,
     pub header: String,
-    pub fields: Option<Vec<AccountField>>,
+    pub fields: Vec<AccountField>,
 }
 
 impl PartialEq for AccountViewModel {
@@ -54,12 +54,11 @@ impl AccountViewModel {
             plain.push('…');
         }
 
-        let fields: Option<Vec<_>> = account.fields.as_ref().map(|fields| {
-            fields
-                .iter()
-                .map(|f| AccountField::new(&f.name, &f.value, f.verified_at))
-                .collect()
-        });
+        let fields: Vec<_> = account
+            .fields
+            .iter()
+            .map(|f| AccountField::new(&f.name, &f.value, f.verified_at))
+            .collect();
 
         let display_name_html = match replace_emoji(&account.display_name, &account.emojis) {
             Some(n) => n,
