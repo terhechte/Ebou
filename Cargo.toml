@@ -22,8 +22,8 @@ crate-type = ["staticlib", "lib"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-dioxus = { git = "https://github.com/DioxusLabs/dioxus", ref = "11c9abc" }
-dioxus-desktop = { git = "https://github.com/DioxusLabs/dioxus", ref = "11c9abc" }
+dioxus = { git = "https://github.com/DioxusLabs/dioxus", ref = "388fb30" }
+dioxus-desktop = { git = "https://github.com/DioxusLabs/dioxus", ref = "388fb30" }
 tokio = { version = "1", features = ["full"] }
 webbrowser = "0.8.9"
 muda = "0.6.0"
@@ -54,7 +54,7 @@ linkify = "0.10"
 log = "0.4.17"
 itertools = "0.11"
 async-trait = "0.1.64"
-navicula = { git = "https://github.com/terhechte/navicula", ref = "deabe6fe85cd2eb4588b39056e4054de63d9c14a" }
+navicula = { git = "https://github.com/terhechte/navicula", ref = "b7eb3d0318ac3a6a2bf9fa5f4ed32d6e388ec496" }
 debug_panic = "0.2.1"
 megalodon = "0.8.5"
 env_logger = "0.10"

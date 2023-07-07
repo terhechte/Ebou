@@ -384,7 +384,7 @@ fn HiddenProfileContent<'a>(
                         store: store
                     }
                     show_links_small.then(|| rsx!(ProfileActions {
-                        store: store
+                        store: store,
                         account: account,
                         show_open: true
                     }))

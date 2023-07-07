@@ -46,7 +46,7 @@ pub fn TimelineComponent<'a>(cx: Scope<'a>, store: ViewStore<'a>) -> Element<'a>
                     class: "scroll content-cell-container",
                     TimelineContents {
                         store: store.clone(),
-                        account_settings: account_settings
+                        account_settings: account_settings,
                         show_profile: true,
                     }
                 }
@@ -91,7 +91,7 @@ pub fn TimelineContents<'a>(
                 (store.direction() == TimelineDirection::NewestBottom).then(move || {
                     rsx!(MoreToots {
                         key: "more_toots_top",
-                        icon: crate::icons::ICON_LOAD_OLDER
+                        icon: crate::icons::ICON_LOAD_OLDER,
                         is_loading: store.is_loading || store.is_loading_more,
                         can_load_more: store.can_load_more,
                         onclick: move |_| store.send(Action::LoadMoreData(last.clone()))
@@ -122,7 +122,7 @@ pub fn TimelineContents<'a>(
                     // order changes
                     key: "{status.id.0}",
                     status: status.clone(),
-                    store: store
+                    store: store,
                     show_profile: show_profile
             })) }
 
@@ -168,7 +168,7 @@ fn AccountProfileHeader<'a>(
                 cx,
                 *account,
                 |account| ProfileState::new(account, true),
-            )
+            ),
             IconButton {
                 icon: crate::icons::ICON_MORE,
                 title: loc!("More Account Actions"),
@@ -260,13 +260,13 @@ fn ContentCellComponent<'a>(
                         onclick: move |action| { store.send((action, boosted.as_ref()).into()) },
                         sender: store.sender_fn(move |a: StatusAction| {
                             (a, &sax).into()
-                        })
+                        }),
                         ProfileComponent {
                             store: store.host_with(
                                 cx,
                                 &boosted.account,
                                 |account| ProfileState::new(account, false),
-                            )
+                            ),
                             Label {
                                 style: TextStyle::Tertiary,
                                 title: "{status.created_full}",
@@ -292,7 +292,7 @@ fn ContentCellComponent<'a>(
                             &status.account,
                             |account| ProfileState::new(account, false),
                             // || ProfileState::new(status.account.clone()),
-                        )
+                        ),
                         FormattedTime {
                             human_time: &status.created_human,
                             full_time: &status.created_full,
@@ -305,7 +305,7 @@ fn ContentCellComponent<'a>(
                     onclick: move |action| { store.send((action, status).into()) },
                     sender: store.sender_fn(move |a| {
                         (a, &sax).into()
-                    })
+                    }),
                     div { class: "p-2",
                         FormattedTime {
                             human_time: &status.created_human,

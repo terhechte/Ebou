@@ -136,7 +136,7 @@ fn SidebarAccountsComponent<'a>(cx: Scope<'a>, store: &'a ViewStore<'a>) -> Elem
                     .map(move |model| rsx!(CellComponent {
                         model: model.clone(),
                         selected: selection.as_ref().map(|e| &e.id) == Some(&model.id),
-                        store: store
+                        store: store,
                         onclick: move |_| store.send(SidebarAction::SelectAccount(model.account.clone())),
                         favorited: favorites.contains(&model.id.0)
                     }))
@@ -156,7 +156,7 @@ fn SidebarAccountsComponent<'a>(cx: Scope<'a>, store: &'a ViewStore<'a>) -> Elem
                     rsx!(AccountCellComponent {
                         account: account.clone(),
                         selected: store.selected_account.as_ref().map(|e| e.id.0.as_str()) == Some(account.id.as_str()),
-                        store: store
+                        store: store,
                         onclick: move |_| store.send(SidebarAction::SelectAccount(AccountViewModel::new(account)))
                     })
                 }),
@@ -257,9 +257,9 @@ fn SidebarNotificationsComponent<'a>(cx: Scope<'a>, store: &'a ViewStore<'a>) ->
                     // })
                     .map(move |model| rsx!(CellComponent {
                         model: model.clone(),
-                        store: store
+                        store: store,
                         selected: selection.as_ref() == Some(&model.account),
-                        onclick: move |_| store.send(SidebarAction::SelectedNotifications(model.account.clone()))
+                        onclick: move |_| store.send(SidebarAction::SelectedNotifications(model.account.clone())),
                         favorited: false
                     })),
 
