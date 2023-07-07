@@ -9,7 +9,7 @@ use crate::environment::platform::default_window;
 
 use crate::style::STYLE;
 
-use dioxus_desktop::Config;
+use dioxus_desktop::{Config, WindowCloseBehaviour};
 
 pub fn run() {
     use env_logger::Env;
@@ -33,6 +33,7 @@ pub fn run() {
     let style = STYLE;
     let script = include_str!("../public/script.js");
     let config = Config::new()
+        .with_close_behaviour(WindowCloseBehaviour::LastWindowHides)
         .with_custom_head(format!(
             r#"
         <title>Ebou</title>

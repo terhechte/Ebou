@@ -32,7 +32,7 @@ pub fn SidebarTextEntry<'a>(
                 onclick: move |_| onclick.call(()),
                 style: TextStyle::Secondary,
                 clickable: false,
-                pointer_style: PointerStyle::Pointer
+                pointer_style: PointerStyle::Pointer,
                 "{text}"
             }
         }

@@ -19,6 +19,6 @@ fn styles() -> String {
 fn main() {
     let out_dir = env::var("OUT_DIR").unwrap();
     let dest_path = Path::new(&out_dir).join("style.css");
-    let mut f = File::create(&dest_path).unwrap();
+    let mut f = File::create(dest_path).unwrap();
     f.write_all(styles().as_bytes()).unwrap();
 }

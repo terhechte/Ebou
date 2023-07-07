@@ -166,7 +166,7 @@ fn MainComponent<'a>(cx: Scope<'a>, store: ViewStore<'a>) -> Element<'a> {
             }
             store.is_replying.as_ref().map(|(kind, images)| rsx!(ReplyComponent {
                 store: store,
-                kind: kind
+                kind: kind,
                 images: images
             }))
         })
@@ -218,7 +218,7 @@ fn ContentComponent<'a>(cx: Scope<'a>, store: &'a ViewStore<'a>) -> Element<'a> 
                 hidden: !tab.is_mentions()
             }
             MoreComponent {
-                store: store
+                store: store,
                 hidden: !tab.is_more()
             }
         }

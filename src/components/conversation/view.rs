@@ -69,7 +69,7 @@ pub fn ConversationComponent<'a>(cx: Scope<'a>, store: ViewStore<'a>) -> Element
                             cx,
                             &cloned_account,
                             |account| ProfileState::new(account, false),
-                        )
+                        ),
                         time
                     }
 
@@ -81,7 +81,7 @@ pub fn ConversationComponent<'a>(cx: Scope<'a>, store: ViewStore<'a>) -> Element
                         },
                         sender: store.sender_fn(move |a: StatusAction| {
                             Action::Public((a, ctx_status.clone()).into())
-                        })
+                        }),
                         ""
                     }
                 }

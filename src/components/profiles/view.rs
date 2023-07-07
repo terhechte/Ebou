@@ -45,7 +45,7 @@ pub fn ProfilesView<'a>(cx: Scope<'a>, store: ViewStore<'a>) -> Element<'a> {
                     store.can_load_more.then(|| {
                         rsx!(MoreFollowers {
                             key: "more_toots_top",
-                            icon: crate::icons::ICON_LOAD_OLDER_TIMELINE
+                            icon: crate::icons::ICON_LOAD_OLDER_TIMELINE,
                             is_loading: store.is_loading || store.is_loading_more,
                             can_load_more: store.can_load_more,
                             onclick: move |_| store.send(ProfilesAction::LoadMoreData)

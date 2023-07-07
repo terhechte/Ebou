@@ -230,7 +230,7 @@ pub fn ProfilePostTimelineView<'a>(
                 *provider,
                 |a| State::new(a, store.ui_settings.clone(), None),
             ),
-            account_settings: None
+            account_settings: None,
             show_profile: false
         }
     })

@@ -831,7 +831,7 @@ dependencies = [
 [[package]]
 name = "dioxus"
 version = "0.3.2"
-source = "git+https://github.com/DioxusLabs/dioxus#11c9abcf7ce731ccb4a44c52de383c090ab319af"
+source = "git+https://github.com/DioxusLabs/dioxus#388fb30ed368f095361555e83631710c2220edd5"
 dependencies = [
  "dioxus-core",
  "dioxus-core-macro",
@@ -844,7 +844,7 @@ dependencies = [
 [[package]]
 name = "dioxus-core"
 version = "0.3.3"
-source = "git+https://github.com/DioxusLabs/dioxus#11c9abcf7ce731ccb4a44c52de383c090ab319af"
+source = "git+https://github.com/DioxusLabs/dioxus#388fb30ed368f095361555e83631710c2220edd5"
 dependencies = [
  "bumpalo",
  "bumpslab",
@@ -862,7 +862,7 @@ dependencies = [
 [[package]]
 name = "dioxus-core-macro"
 version = "0.3.0"
-source = "git+https://github.com/DioxusLabs/dioxus#11c9abcf7ce731ccb4a44c52de383c090ab319af"
+source = "git+https://github.com/DioxusLabs/dioxus#388fb30ed368f095361555e83631710c2220edd5"
 dependencies = [
  "dioxus-rsx",
  "proc-macro2",
@@ -873,7 +873,7 @@ dependencies = [
 [[package]]
 name = "dioxus-desktop"
 version = "0.3.0"
-source = "git+https://github.com/DioxusLabs/dioxus#11c9abcf7ce731ccb4a44c52de383c090ab319af"
+source = "git+https://github.com/DioxusLabs/dioxus#388fb30ed368f095361555e83631710c2220edd5"
 dependencies = [
  "core-foundation",
  "dioxus-core",
@@ -901,7 +901,7 @@ dependencies = [
 [[package]]
 name = "dioxus-hooks"
 version = "0.3.1"
-source = "git+https://github.com/DioxusLabs/dioxus#11c9abcf7ce731ccb4a44c52de383c090ab319af"
+source = "git+https://github.com/DioxusLabs/dioxus#388fb30ed368f095361555e83631710c2220edd5"
 dependencies = [
  "dioxus-core",
  "futures-channel",
@@ -911,7 +911,7 @@ dependencies = [
 [[package]]
 name = "dioxus-hot-reload"
 version = "0.1.1"
-source = "git+https://github.com/DioxusLabs/dioxus#11c9abcf7ce731ccb4a44c52de383c090ab319af"
+source = "git+https://github.com/DioxusLabs/dioxus#388fb30ed368f095361555e83631710c2220edd5"
 dependencies = [
  "chrono",
  "dioxus-core",
@@ -919,7 +919,7 @@ dependencies = [
  "dioxus-rsx",
  "execute",
  "ignore",
- "interprocess",
+ "interprocess-docfix",
  "notify",
  "once_cell",
  "serde",
@@ -929,7 +929,7 @@ dependencies = [
 [[package]]
 name = "dioxus-html"
 version = "0.3.1"
-source = "git+https://github.com/DioxusLabs/dioxus#11c9abcf7ce731ccb4a44c52de383c090ab319af"
+source = "git+https://github.com/DioxusLabs/dioxus#388fb30ed368f095361555e83631710c2220edd5"
 dependencies = [
  "async-trait",
  "dioxus-core",
@@ -937,7 +937,6 @@ dependencies = [
  "enumset",
  "euclid",
  "keyboard-types",
- "rfd",
  "serde",
  "serde-value",
  "serde_repr",
@@ -947,12 +946,12 @@ dependencies = [
 [[package]]
 name = "dioxus-interpreter-js"
 version = "0.3.3"
-source = "git+https://github.com/DioxusLabs/dioxus#11c9abcf7ce731ccb4a44c52de383c090ab319af"
+source = "git+https://github.com/DioxusLabs/dioxus#388fb30ed368f095361555e83631710c2220edd5"
 
 [[package]]
 name = "dioxus-rsx"
 version = "0.0.3"
-source = "git+https://github.com/DioxusLabs/dioxus#11c9abcf7ce731ccb4a44c52de383c090ab319af"
+source = "git+https://github.com/DioxusLabs/dioxus#388fb30ed368f095361555e83631710c2220edd5"
 dependencies = [
  "dioxus-core",
  "internment",
@@ -2197,10 +2196,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "interprocess"
-version = "1.2.1"
+name = "interprocess-docfix"
+version = "1.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "81f2533f3be42fffe3b5e63b71aeca416c1c3bc33e4e27be018521e76b1f38fb"
+checksum = "4b84ee245c606aeb0841649a9288e3eae8c61b853a8cd5c0e14450e96d53d28f"
 dependencies = [
  "blocking",
  "cfg-if",
@@ -2522,12 +2521,9 @@ dependencies = [
 
 [[package]]
 name = "log"
-version = "0.4.17"
+version = "0.4.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "abb12e687cfb44aa40f41fc3978ef76448f9b6038cad6aef4259d3c095a2382e"
-dependencies = [
- "cfg-if",
-]
+checksum = "b06a4cde4c0f271a446782e3eff8de789548ce57dbc8eca9292c27f4a42004b4"
 
 [[package]]
 name = "longest-increasing-subsequence"
@@ -2721,7 +2717,7 @@ dependencies = [
 [[package]]
 name = "navicula"
 version = "0.1.0"
-source = "git+https://github.com/terhechte/navicula#deabe6fe85cd2eb4588b39056e4054de63d9c14a"
+source = "git+https://github.com/terhechte/navicula#b7eb3d0318ac3a6a2bf9fa5f4ed32d6e388ec496"
 dependencies = [
  "dioxus",
  "dioxus-desktop",
@@ -4160,9 +4156,9 @@ dependencies = [
 
 [[package]]
 name = "tao"
-version = "0.18.3"
+version = "0.19.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8f2340617d383561b0ea25358b97ec2c2ba04db48c458ce71dd1b38d7fd09ac5"
+checksum = "746ae5d0ca57ae275a792f109f6e992e0b41a443abdf3f5c6eff179ef5b3443a"
 dependencies = [
  "bitflags",
  "cairo-rs",
@@ -5207,9 +5203,9 @@ dependencies = [
 
 [[package]]
 name = "wry"
-version = "0.27.3"
+version = "0.28.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e8cf0dbfa7ccbd2e3832a3098b19d4b552360ea00a40b244a99caef46bffd84f"
+checksum = "7d15f9f827d537cefe6d047be3930f5d89b238dfb85e08ba6a319153217635aa"
 dependencies = [
  "base64 0.13.1",
  "block",
