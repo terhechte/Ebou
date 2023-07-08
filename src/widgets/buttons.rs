@@ -3,10 +3,10 @@ use dioxus::prelude::*;
 
 pub fn EmojiButton(cx: Scope<'_>) -> Element<'_> {
     // On windows, this isn't possible, it seems
-    #[cfg(target_os = "windows")]
+    #[cfg(not(target_os = "macos"))]
     return cx.render(rsx!({}));
 
-    #[cfg(not(target_os = "windows"))]
+    #[cfg(target_os = "macos")]
     {
         use navicula::types::AppWindow;
         let window = AppWindow::retrieve(cx);
@@ -15,7 +15,6 @@ pub fn EmojiButton(cx: Scope<'_>) -> Element<'_> {
                 button {
                     prevent_default: "onmousedown",
                     onmousedown: move |_| {
-                        #[cfg(not(target_os = "linux"))]
                         crate::environment::platform::show_emoji_popup(&window);
                     },
                     dangerous_inner_html: crate::icons::ICON_EMOJI

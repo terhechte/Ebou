@@ -110,6 +110,7 @@ impl ContextMenuItem {
     }
 }
 
+#[cfg(not(target_os = "ios"))]
 impl ContextMenuItem {
     fn build(self, into: &mut muda::Submenu, actions: &mut HashMap<MenuEventId, Payload>) {
         use muda::{CheckMenuItem, MenuItem, PredefinedMenuItem, Submenu};
@@ -167,6 +168,7 @@ impl<'a, R: Reducer> ViewStoreContextMenu<'a> for ViewStore<'a, R> {
     }
 }
 
+#[cfg(not(target_os = "ios"))]
 pub fn context_menu<A: Clone + std::fmt::Debug + Send + 'static, T>(
     cx: Scope<T>,
     //sender: ActionSender<A>,
@@ -201,6 +203,18 @@ pub fn context_menu<A: Clone + std::fmt::Debug + Send + 'static, T>(
     show_context_menu(window, event, menu, action_key);
 }
 
+#[cfg(target_os = "ios")]
+pub fn context_menu<A: Clone + std::fmt::Debug + Send + 'static, T>(
+    cx: Scope<T>,
+    //sender: ActionSender<A>,
+    sender: Arc<dyn Fn(A) + Send + Sync>,
+    window: AppWindow,
+    event: &MouseData,
+    menu: ContextMenu<A>,
+) {
+}
+
+#[cfg(not(target_os = "ios"))]
 fn show_context_menu<A>(
     window: AppWindow,
     event: &MouseData,
@@ -270,6 +284,16 @@ fn show_context_menu<A>(
     }
 }
 
+#[cfg(target_os = "ios")]
+fn show_context_menu<A>(
+    window: AppWindow,
+    event: &MouseData,
+    menu: ContextMenu<A>,
+    action_key: String,
+) {
+}
+
+#[cfg(not(target_os = "ios"))]
 pub fn setup_menu_handler<A>(
     id: usize,
     schedule_update: Option<Arc<dyn Fn(MenuEventId) + Send + Sync>>,
@@ -306,6 +330,13 @@ pub fn setup_menu_handler<A>(
     } else {
         actions.remove(&action_key);
     }
+}
+
+#[cfg(not(target_os = "ios"))]
+pub fn setup_menu_handler<A>(
+    id: usize,
+    schedule_update: Option<Arc<dyn Fn(MenuEventId) + Send + Sync>>,
+) {
 }
 
 pub fn resolve_current_action<Action: std::fmt::Debug + Clone + 'static>(

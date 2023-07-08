@@ -1,5 +1,5 @@
 #![allow(non_snake_case)]
-#[cfg(target_os = "macos")]
+#[cfg(any(target_os = "macos", target_os = "ios"))]
 #[macro_use]
 extern crate objc;
 
@@ -9,11 +9,10 @@ mod components;
 mod environment;
 mod helper;
 mod icons;
-mod login;
+mod style;
 mod view_model;
 mod widgets;
 mod windows;
-mod style;
 
 pub use app::run;
 pub use environment::Instances;

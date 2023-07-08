@@ -11,6 +11,7 @@ use crate::style::STYLE;
 
 use dioxus_desktop::{Config, WindowCloseBehaviour};
 
+#[cfg(not(target_os = "ios"))]
 pub fn run() {
     use env_logger::Env;
     use std::io::Write;
@@ -52,6 +53,51 @@ pub fn run() {
         .with_window(default_window());
 
     dioxus_desktop::launch_with_props(RootApp, RootAppProps {}, config);
+}
+
+#[no_mangle]
+#[inline(never)]
+#[cfg(target_os = "ios")]
+pub extern "C" fn run() {
+    stop_unwind(|| run_ios().unwrap());
+}
+
+#[cfg(target_os = "ios")]
+fn run_ios() -> Result<(), Box<dyn std::error::Error>> {
+    let style = STYLE;
+    let script = include_str!("../public/script.js");
+    let config = Config::new()
+        .with_close_behaviour(WindowCloseBehaviour::LastWindowHides)
+        .with_custom_head(format!(
+            r#"
+        <title>Ebou</title>
+        <style>{style}</style>
+        <script>{script}</script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        "#
+        ))
+        // .with_file_drop_handler(move |_window, file| {
+        //     let Ok(updater) = crate::components::loggedin::SCOPE_UPDATER.lock() else { return true };
+        //     if let Some(o) = updater.as_ref() {
+        //         crate::environment::handle_file_event(file, o)
+        //     } else {
+        //         true
+        //     }
+        // })
+        .with_window(default_window());
+    dioxus_desktop::launch_with_props(RootApp, RootAppProps {}, config);
+    Ok(())
+}
+
+#[cfg(target_os = "ios")]
+fn stop_unwind<F: FnOnce() -> T, T>(f: F) -> T {
+    match std::panic::catch_unwind(std::panic::AssertUnwindSafe(f)) {
+        Ok(t) => t,
+        Err(err) => {
+            eprintln!("attempt to unwind out of `rust` with err: {:?}", err);
+            std::process::abort()
+        }
+    }
 }
 
 pub struct RootAppProps {}

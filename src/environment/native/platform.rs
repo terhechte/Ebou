@@ -25,6 +25,11 @@ mod linux;
 #[cfg(target_os = "linux")]
 pub use self::linux::*;
 
+#[cfg(target_os = "ios")]
+mod ios;
+#[cfg(target_os = "ios")]
+pub use self::ios::*;
+
 pub fn is_fullscreen<'a>(window: &'a AppWindow<'a>) -> bool {
     window.fullscreen().is_some()
 }
@@ -91,8 +96,9 @@ pub fn temporary_directory() -> Option<std::path::PathBuf> {
     Some(path)
 }
 
-use rfd::FileDialog;
+#[cfg(not(target_os = "ios"))]
 pub fn open_file_dialog(directory: &str) -> Option<view_model::AttachmentMedia> {
+    use rfd::FileDialog;
     let file = FileDialog::new()
         .add_filter("image", SUPPORTED_IMAGE_TYPES)
         .add_filter("video", SUPPORTED_VIDEO_TYPES)
@@ -102,6 +108,11 @@ pub fn open_file_dialog(directory: &str) -> Option<view_model::AttachmentMedia> 
     let file = file?;
 
     read_file_to_attachment(&file)
+}
+
+#[cfg(target_os = "ios")]
+pub fn open_file_dialog(directory: &str) -> Option<view_model::AttachmentMedia> {
+    None
 }
 
 pub const SUPPORTED_IMAGE_TYPES: &[&str] = &["png", "jpg", "jpeg", "gif"];
