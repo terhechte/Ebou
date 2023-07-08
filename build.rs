@@ -21,4 +21,13 @@ fn main() {
     let dest_path = Path::new(&out_dir).join("style.css");
     let mut f = File::create(dest_path).unwrap();
     f.write_all(styles().as_bytes()).unwrap();
+
+    let crate_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
+    let filename = "gen/apple/Sources/mobile-demo/bindings/bindings.h";
+
+    let _build = cbindgen::Builder::new()
+        .with_crate(crate_dir)
+        .generate()
+        .expect("Unable to generate bindings")
+        .write_to_file(filename);
 }
