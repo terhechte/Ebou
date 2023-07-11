@@ -15,11 +15,10 @@ pub fn default_window() -> WindowBuilder {
     let builder = WindowBuilder::new();
     let s = LogicalSize::new(1200., 775.);
 
-    let builder = builder
+    builder
         .with_title("Ebou")
         .with_theme(Some(dioxus_desktop::tao::window::Theme::Dark))
-        .with_inner_size(s);
-    builder
+        .with_inner_size(s)
 }
 
 #[derive(Clone, Default)]
@@ -27,7 +26,7 @@ pub struct Platform {}
 
 impl Platform {
     pub fn setup_toolbar(&self, _window: &AppWindow) {}
-    pub fn update_menu<'a>(&self, _window: &AppWindow, _mutator: impl Fn(&mut MainMenuConfig)) {}
+    pub fn update_menu(&self, _window: &AppWindow, _mutator: impl Fn(&mut MainMenuConfig)) {}
     pub fn update_toolbar(
         &self,
         _account: &str,
@@ -46,7 +45,7 @@ impl Platform {
     pub fn loggedout_toolbar(&self, _window: &AppWindow) {}
 }
 
-pub fn apply_window_background<'a>(window: &AppWindow) {
+pub fn apply_window_background(window: &AppWindow) {
     let webview = window.webview.clone();
     let mv = webview.webview();
     unsafe {

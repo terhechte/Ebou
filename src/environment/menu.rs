@@ -332,7 +332,7 @@ pub fn setup_menu_handler<A>(
     }
 }
 
-#[cfg(not(target_os = "ios"))]
+#[cfg(target_os = "ios")]
 pub fn setup_menu_handler<A>(
     id: usize,
     schedule_update: Option<Arc<dyn Fn(MenuEventId) + Send + Sync>>,

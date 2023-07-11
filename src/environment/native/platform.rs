@@ -62,7 +62,9 @@ fn tab_index(tab: &UiTab) -> ToolbarSelection {
 
 /// Sorta cross-platform way of opening a file
 pub fn open_file(path: impl AsRef<std::path::Path>) {
+    #[allow(unused)]
     use std::process::Command;
+    #[allow(unused)]
     let Some(path) = path.as_ref().to_str() else {
         return
     };
@@ -111,7 +113,7 @@ pub fn open_file_dialog(directory: &str) -> Option<view_model::AttachmentMedia> 
 }
 
 #[cfg(target_os = "ios")]
-pub fn open_file_dialog(directory: &str) -> Option<view_model::AttachmentMedia> {
+pub fn open_file_dialog(_directory: &str) -> Option<view_model::AttachmentMedia> {
     None
 }
 
