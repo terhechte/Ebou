@@ -9,7 +9,7 @@ use crate::environment::platform::default_window;
 
 use crate::style::STYLE;
 
-use dioxus_desktop::{Config, WindowCloseBehaviour};
+use dioxus_desktop::{use_wry_event_handler, Config, WindowCloseBehaviour};
 
 #[cfg(not(target_os = "ios"))]
 pub fn run() {
@@ -109,6 +109,33 @@ pub fn RootApp(cx: Scope<'_, RootAppProps>) -> Element<'_> {
         .users()
         .ok()
         .and_then(|users| users.first().cloned());
+
+    // this is only needed for the js menus
+    #[cfg(any(target_os = "macos", target_os = "linux", target_os = "ios"))]
+    use_wry_event_handler(cx, {
+        #[allow(clippy::single_match)]
+        move |event, _| match event {
+            dioxus_desktop::tao::event::Event::UserEvent(a) => {
+                if let Some(u) = a.custom_data() {
+                    match (u.get("data"), u.get("name")) {
+                        (
+                            Some(serde_json::Value::Number(n)),
+                            Some(serde_json::Value::String(s)),
+                        ) => {
+                            if s.as_str() == "action" {
+                                if let Some(n) = n.as_u64() {
+                                    crate::environment::menu::find_matching_action(n);
+                                }
+                            }
+                        }
+                        _ => {}
+                    }
+                }
+            }
+            _ => (),
+        }
+    });
+
     let has_user = user.is_some();
 
     let environment_state = use_state(cx, || {

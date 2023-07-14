@@ -1,6 +1,7 @@
 use dioxus::prelude::*;
 use navicula::logic::Drops;
 use navicula::{Reducer, ViewStore};
+use serde_json::json;
 
 use std::collections::HashMap;
 use std::sync::{Arc, RwLock};
@@ -9,7 +10,7 @@ use std::any::Any;
 
 use crate::environment::platform::AppWindow;
 
-type MenuEventId = u32;
+type MenuEventId = u64;
 
 type ContextMenuEventIdMapHandler =
     Arc<RwLock<HashMap<String, Arc<dyn Fn(MenuEventId) + Send + Sync>>>>;
@@ -51,6 +52,7 @@ enum ContextMenuKind {
 pub struct ContextMenuItem {
     // Only one field to hide the actual enum
     kind: ContextMenuKind,
+    id: u64,
 }
 
 pub struct ContextMenu<A> {
@@ -79,6 +81,7 @@ impl ContextMenuItem {
                 title: title.as_ref().to_string(),
                 payload: Box::new(payload),
             },
+            id: id_generator::gen(),
         }
     }
     pub fn checkbox<T: Send + Sync + 'static>(
@@ -92,6 +95,7 @@ impl ContextMenuItem {
                 checked,
                 payload: Box::new(payload),
             },
+            id: id_generator::gen(),
         }
     }
     pub fn submenu(title: impl AsRef<str>, children: Vec<ContextMenuItem>) -> Self {
@@ -100,17 +104,18 @@ impl ContextMenuItem {
                 title: title.as_ref().to_string(),
                 children,
             },
+            id: id_generator::gen(),
         }
     }
 
     pub fn separator() -> Self {
         Self {
             kind: ContextMenuKind::Separator,
+            id: id_generator::gen(),
         }
     }
 }
 
-#[cfg(not(target_os = "ios"))]
 impl ContextMenuItem {
     fn build(self, into: &mut muda::Submenu, actions: &mut HashMap<MenuEventId, Payload>) {
         use muda::{CheckMenuItem, MenuItem, PredefinedMenuItem, Submenu};
@@ -121,12 +126,12 @@ impl ContextMenuItem {
                 payload,
             } => {
                 let item = CheckMenuItem::new(title, true, checked, None);
-                actions.insert(item.id(), payload);
+                actions.insert(item.id() as u64, payload);
                 into.append(&item);
             }
             ContextMenuKind::Item { title, payload } => {
                 let item = MenuItem::new(title, true, None);
-                actions.insert(item.id(), payload);
+                actions.insert(item.id() as u64, payload);
                 into.append(&item);
             }
             ContextMenuKind::Submenu { title, children } => {
@@ -138,6 +143,64 @@ impl ContextMenuItem {
             }
             ContextMenuKind::Separator => {
                 into.append(&PredefinedMenuItem::separator());
+            }
+        }
+    }
+
+    fn build_js(
+        self,
+        into: &mut Vec<serde_json::Value>,
+        actions: &mut HashMap<MenuEventId, Payload>,
+    ) {
+        use serde_json::Value;
+        let id = self.id;
+        match self.kind {
+            ContextMenuKind::Checkbox {
+                title,
+                checked,
+                payload,
+            } => {
+                let item = json!({
+                    "kind": "checkbox",
+                    "title": title,
+                    "enabled": true,
+                    "checked": checked,
+                    "id": id,
+                });
+                actions.insert(id, payload);
+                into.push(item);
+            }
+            ContextMenuKind::Item { title, payload } => {
+                let item = json!({
+                    "kind": "menuitem",
+                    "title": title,
+                    "enabled": true,
+                    "id": id,
+                });
+                actions.insert(id, payload);
+                into.push(item);
+            }
+            ContextMenuKind::Submenu { title, children } => {
+                let id = into.len();
+                let mut item = json!({
+                    "kind": "submenu",
+                    "title": title,
+                    "enabled": true,
+                    "id": id
+                });
+                let mut sub_menu = Vec::new();
+                for child in children {
+                    child.build_js(&mut sub_menu, actions);
+                }
+                item["submenu"] = Value::Array(sub_menu);
+                into.push(item);
+            }
+            ContextMenuKind::Separator => {
+                let item = json!({
+                    "kind": "separator",
+                    "enabled": true
+                });
+                into.push(item);
             }
         }
     }
@@ -168,10 +231,8 @@ impl<'a, R: Reducer> ViewStoreContextMenu<'a> for ViewStore<'a, R> {
     }
 }
 
-#[cfg(not(target_os = "ios"))]
 pub fn context_menu<A: Clone + std::fmt::Debug + Send + 'static, T>(
     cx: Scope<T>,
-    //sender: ActionSender<A>,
     sender: Arc<dyn Fn(A) + Send + Sync>,
     window: AppWindow,
     event: &MouseData,
@@ -182,12 +243,10 @@ pub fn context_menu<A: Clone + std::fmt::Debug + Send + 'static, T>(
     let action_key = format!("{}-{}", id, action_key);
 
     // Setup the menu handler
-
     crate::environment::menu::setup_menu_handler::<A>(
         id,
         Some(Arc::new(move |ev| {
             if let Some(action) = resolve_current_action(id, ev) {
-                // sender.send(action);
                 sender(action);
             }
         })),
@@ -203,19 +262,59 @@ pub fn context_menu<A: Clone + std::fmt::Debug + Send + 'static, T>(
     show_context_menu(window, event, menu, action_key);
 }
 
-#[cfg(target_os = "ios")]
-pub fn context_menu<A: Clone + std::fmt::Debug + Send + 'static, T>(
-    cx: Scope<T>,
-    //sender: ActionSender<A>,
-    sender: Arc<dyn Fn(A) + Send + Sync>,
+fn show_context_menu<A>(
     window: AppWindow,
     event: &MouseData,
     menu: ContextMenu<A>,
+    action_key: String,
 ) {
+    // Choose a context menu implementation based on the platform
+    #[cfg(target_os = "ios")]
+    show_context_menu_js(window, event, menu, action_key);
+
+    #[cfg(target_os = "macos")]
+    show_context_menu_js(window, event, menu, action_key);
+
+    #[cfg(target_os = "windows")]
+    show_context_menu_native(window, event, menu, action_key);
+
+    // Until we add native linux support, use the js implementation here
+    #[cfg(target_os = "linux")]
+    show_context_menu_js(window, event, menu, action_key);
 }
 
-#[cfg(not(target_os = "ios"))]
-fn show_context_menu<A>(
+#[allow(unused)]
+fn show_context_menu_js<A>(
+    window: AppWindow,
+    event: &MouseData,
+    menu: ContextMenu<A>,
+    action_key: String,
+) {
+    let pos = event.client_coordinates();
+    let mut actions = HashMap::new();
+    let mut js_menu = Vec::new();
+    for c in menu.children {
+        c.build_js(&mut js_menu, &mut actions);
+    }
+
+    if let Ok(mut t) = CTX_STATE.write() {
+        let Some(entry) = t.get_mut(&action_key) else {
+            println!("setup_menu_handler was not called for action {action_key}. No handler registered");
+            return;
+        };
+        *entry = actions;
+    }
+
+    if let Ok(serialized) = serde_json::to_string(&js_menu) {
+        window.eval(&format!(
+            "createMenu({}, {}, {});",
+            serialized, pos.x, pos.y
+        ));
+    }
+}
+
+#[allow(unused)]
+fn show_context_menu_native<A>(
     window: AppWindow,
     event: &MouseData,
     menu: ContextMenu<A>,
@@ -284,16 +383,6 @@ fn show_context_menu<A>(
     }
 }
 
-#[cfg(target_os = "ios")]
-fn show_context_menu<A>(
-    window: AppWindow,
-    event: &MouseData,
-    menu: ContextMenu<A>,
-    action_key: String,
-) {
-}
-
-#[cfg(not(target_os = "ios"))]
 pub fn setup_menu_handler<A>(
     id: usize,
     schedule_update: Option<Arc<dyn Fn(MenuEventId) + Send + Sync>>,
@@ -308,15 +397,7 @@ pub fn setup_menu_handler<A>(
     if m.is_empty() {
         use muda::MenuEvent;
         MenuEvent::set_event_handler(Some(move |event: muda::MenuEvent| {
-            // iterate over all actions and call them. only those with a matching
-            // event will trigger. this is a bit expensive, but only happens on
-            // menu events.
-            let Ok(r) = CTX_STATE_A.read() else {
-                    return;
-                };
-            for (_, v) in r.iter() {
-                (v)(event.id)
-            }
+            find_matching_action(event.id as u64);
         }));
     }
 
@@ -332,11 +413,16 @@ pub fn setup_menu_handler<A>(
     }
 }
 
-#[cfg(target_os = "ios")]
-pub fn setup_menu_handler<A>(
-    id: usize,
-    schedule_update: Option<Arc<dyn Fn(MenuEventId) + Send + Sync>>,
-) {
+pub fn find_matching_action(event_id: u64) {
+    // iterate over all actions and call them. only those with a matching
+    // event will trigger. this is a bit expensive, but only happens on
+    // menu events.
+    let Ok(r) = CTX_STATE_A.read() else {
+        return;
+    };
+    for (_, v) in r.iter() {
+        (v)(event_id)
+    }
 }
 
 pub fn resolve_current_action<Action: std::fmt::Debug + Clone + 'static>(
@@ -358,4 +444,38 @@ pub fn resolve_current_action<Action: std::fmt::Debug + Clone + 'static>(
         return None;
     };
     Some(*value)
+}
+
+mod id_generator {
+    use std::sync::atomic::{AtomicU64, Ordering};
+    use std::sync::Mutex;
+
+    // Define the ID generator
+    pub struct IdGenerator {
+        current_id: AtomicU64,
+    }
+
+    impl IdGenerator {
+        // Constructor
+        pub fn new() -> IdGenerator {
+            IdGenerator {
+                current_id: AtomicU64::new(0),
+            }
+        }
+
+        // Generate new ID
+        pub fn generate_id(&self) -> u64 {
+            self.current_id.fetch_add(1, Ordering::SeqCst)
+        }
+    }
+
+    lazy_static::lazy_static! {
+        // Define a global instance
+        pub static ref GLOBAL_ID_GENERATOR: Mutex<IdGenerator> = Mutex::new(IdGenerator::new());
+    }
+
+    // Use this function to generate IDs
+    pub fn gen() -> u64 {
+        GLOBAL_ID_GENERATOR.lock().unwrap().generate_id()
+    }
 }

@@ -874,7 +874,6 @@ dependencies = [
 [[package]]
 name = "dioxus"
 version = "0.3.2"
-source = "git+https://github.com/DioxusLabs/dioxus#388fb30ed368f095361555e83631710c2220edd5"
 dependencies = [
  "dioxus-core",
  "dioxus-core-macro",
@@ -887,7 +886,6 @@ dependencies = [
 [[package]]
 name = "dioxus-core"
 version = "0.3.3"
-source = "git+https://github.com/DioxusLabs/dioxus#388fb30ed368f095361555e83631710c2220edd5"
 dependencies = [
  "bumpalo",
  "bumpslab",
@@ -905,7 +903,6 @@ dependencies = [
 [[package]]
 name = "dioxus-core-macro"
 version = "0.3.0"
-source = "git+https://github.com/DioxusLabs/dioxus#388fb30ed368f095361555e83631710c2220edd5"
 dependencies = [
  "dioxus-rsx",
  "proc-macro2",
@@ -916,7 +913,6 @@ dependencies = [
 [[package]]
 name = "dioxus-desktop"
 version = "0.3.0"
-source = "git+https://github.com/DioxusLabs/dioxus#388fb30ed368f095361555e83631710c2220edd5"
 dependencies = [
  "core-foundation",
  "dioxus-core",
@@ -944,7 +940,6 @@ dependencies = [
 [[package]]
 name = "dioxus-hooks"
 version = "0.3.1"
-source = "git+https://github.com/DioxusLabs/dioxus#388fb30ed368f095361555e83631710c2220edd5"
 dependencies = [
  "dioxus-core",
  "futures-channel",
@@ -954,7 +949,6 @@ dependencies = [
 [[package]]
 name = "dioxus-hot-reload"
 version = "0.1.1"
-source = "git+https://github.com/DioxusLabs/dioxus#388fb30ed368f095361555e83631710c2220edd5"
 dependencies = [
  "chrono",
  "dioxus-core",
@@ -972,7 +966,6 @@ dependencies = [
 [[package]]
 name = "dioxus-html"
 version = "0.3.1"
-source = "git+https://github.com/DioxusLabs/dioxus#388fb30ed368f095361555e83631710c2220edd5"
 dependencies = [
  "async-trait",
  "dioxus-core",
@@ -989,12 +982,10 @@ dependencies = [
 [[package]]
 name = "dioxus-interpreter-js"
 version = "0.3.3"
-source = "git+https://github.com/DioxusLabs/dioxus#388fb30ed368f095361555e83631710c2220edd5"
 
 [[package]]
 name = "dioxus-rsx"
 version = "0.0.3"
-source = "git+https://github.com/DioxusLabs/dioxus#388fb30ed368f095361555e83631710c2220edd5"
 dependencies = [
  "dioxus-core",
  "internment",
@@ -2752,7 +2743,6 @@ dependencies = [
 [[package]]
 name = "navicula"
 version = "0.1.0"
-source = "git+https://github.com/terhechte/navicula#b7eb3d0318ac3a6a2bf9fa5f4ed32d6e388ec496"
 dependencies = [
  "dioxus",
  "dioxus-desktop",
