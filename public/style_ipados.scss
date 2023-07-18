@@ -1,0 +1,71 @@
+@use "variables_ipados";
+@use "sidebar";
+@use "helpers";
+@use "style_base";
+
+
+body {
+    border-top: 1px solid var(--g-separatorColorDark);
+}
+
+.sb-sidebar.collapsed {
+    width: 70px !important;
+    min-width: 70px !important;
+    max-width: 70px !important;
+}
+
+.sb-sidebar.collapsed .account-preview-fields {
+    display: none;
+}
+
+.sb-sidebar.collapsed select {
+    display: none;
+}
+
+.sb-sidebar.collapsed>div.sidebar>div>input {
+    display: none;
+}
+
+.icon-button>button {
+    width: 24px;
+    height: 24px;
+    /* Using px here, we don't want this font to change ever */
+    font-size: 14px;
+}
+
+.icon-button.text>button {
+    width: 24px;
+    height: 24px;
+}
+
+input {
+    height: 30px;
+    font-size: 16px;
+}
+
+.cell {
+    border-radius: 16px;
+    margin: 8px;
+}
+
+.toolbar {
+    border-radius: 16px;
+}
+
+.content-cell {
+    border-radius: 16px;
+}
+
+.boost-container>.content-cell {
+    border-radius: 0px 0px 16px 16px;
+}
+
+.boost-container>.boost-header {
+    border-radius: 16px 16px 0px 0px;
+    background-color: var(--g-backgroundBase3);
+    padding: 8px;
+}
+
+.conversation-child {
+    border-radius: 16px;
+}

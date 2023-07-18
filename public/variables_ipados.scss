@@ -1,0 +1,50 @@
+:root {
+    color-scheme: dark;
+
+    --g-systemBlue: rgba(0, 122, 255, 1);
+    --g-systemIndigo: rgba(88, 86, 214, 1);
+    --g-systemTeal: rgba(85, 190, 240, 1);
+
+
+    /* Labels */
+    --g-secondaryLabelColor: rgba(0, 0, 0, 0.498);
+    --g-tertiaryLabelColor: rgba(0, 0, 0, 0.259);
+    --g-quaternaryLabelColor: rgba(0, 0, 0, 0.098);
+
+    /* Text */
+    --g-textColor: #FFF;
+    --g-textColorDark: #98989F;
+    --g-textBackgroundColor: rgba(255, 255, 255, 1);
+
+    /* Content */
+    --g-alternatingContentBackgroundColorsEven: #1F1F1F;
+    --g-alternatingContentBackgroundColorsOdd: #363737;
+    --g-alternatingContentBackgroundColorsOddDark: #242425;
+    --g-alternatingContentBackgroundColorsOddLight: #404242;
+    --g-separatorColor: #9999993f;
+    --g-separatorColorDark: #000000;
+    --g-selectedContentBackgroundColor: rgba(0, 99, 225, 1);
+    --g-selectedContentBackgroundColorAlpha: rgba(0, 99, 225, 0.90);
+    --g-selectedContentBackgroundColorAlphaInactive: #FFFFFF22;
+    --g-selectedContentBackgroundColorLight: #4999EE;
+
+    /* Controls */
+    --g-controlBackgroundColor: #565757;
+    --g-controlBackgroundColorActive: #6F7070;
+
+    --g-font-size--4: 0.75rem + 0.7rem;
+    --g-font-size--3: 0.80rem + 0.7rem;
+    --g-font-size--3x: 0.90rem + 0.7rem;
+    --g-font-size--2: 1.0rem + 0.7rem;
+    --g-font-size--1: 1.1rem + 0.7rem;
+
+    --g-backgroundWindowDark: #000000;
+    --g-backgroundWindow: #000000;
+
+    --g-backgroundBase5: #242425;
+    --g-backgroundBase4: #29292A;
+    --g-backgroundBase3: #363737;
+    --g-backgroundBase2: #3C3C3C;
+    --g-backgroundBase1: #565757;
+    --g-backgroundBase0: #5F5F5E;
+}

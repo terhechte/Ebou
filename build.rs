@@ -8,12 +8,12 @@ extern crate grass;
 #[cfg(debug_assertions)]
 fn styles() -> String {
     let format = grass::Options::default().style(grass::OutputStyle::Expanded);
-    grass::from_path("public/style.scss", &format).unwrap()
+    grass::from_path(input_file(), &format).unwrap()
 }
 
 #[cfg(not(debug_assertions))]
 fn styles() -> String {
-    grass::include!("public/style.scss").to_string()
+    grass::include!(STYLE_FILE).to_string()
 }
 
 fn main() {
@@ -30,4 +30,11 @@ fn main() {
         .generate()
         .expect("Unable to generate bindings")
         .write_to_file(filename);
+}
+
+fn input_file() -> &'static str {
+    match std::env::var("CARGO_CFG_TARGET_OS").unwrap().as_str() {
+        "ios" => "public/style_ipados.scss",
+        _ => "public/style_macos.scss",
+    }
 }

@@ -1,0 +1,29 @@
+@use "variables_macos";
+@use "sidebar";
+@use "helpers";
+@use "style_base";
+
+body {
+    border-top: 1px solid var(--g-separatorColorDark);
+}
+
+.timeline-component {
+    background-color: var(--g-alternatingContentBackgroundColorsEven);
+}
+
+.icon-button>button {
+    width: 18px;
+    height: 18px;
+    /* Using px here, we don't want this font to change ever */
+    font-size: 12px;
+}
+
+.icon-button.text>button {
+    width: 14px;
+    height: 14px;
+}
+
+input {
+    height: 24px;
+    font-size: 13px;
+}

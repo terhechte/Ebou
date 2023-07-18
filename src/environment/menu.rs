@@ -117,6 +117,7 @@ impl ContextMenuItem {
 }
 
 impl ContextMenuItem {
+    #[cfg(not(target_os = "ios"))]
     fn build(self, into: &mut muda::Submenu, actions: &mut HashMap<MenuEventId, Payload>) {
         use muda::{CheckMenuItem, MenuItem, PredefinedMenuItem, Submenu};
         match self.kind {
@@ -226,7 +227,6 @@ impl<'a, R: Reducer> ViewStoreContextMenu<'a> for ViewStore<'a, R> {
     ) {
         let window = AppWindow::retrieve(cx);
         let sender = self.sender();
-        //context_menu(cx, sender, window, event, menu)
         context_menu(cx, Arc::new(move |a| sender.send(a)), window, event, menu)
     }
 }
@@ -243,6 +243,7 @@ pub fn context_menu<A: Clone + std::fmt::Debug + Send + 'static, T>(
     let action_key = format!("{}-{}", id, action_key);
 
     // Setup the menu handler
+    #[cfg(not(target_os = "ios"))]
     crate::environment::menu::setup_menu_handler::<A>(
         id,
         Some(Arc::new(move |ev| {
@@ -253,10 +254,13 @@ pub fn context_menu<A: Clone + std::fmt::Debug + Send + 'static, T>(
     );
 
     // remove the handler on context drop
-    let cloned = id;
-    Drops::action(cx, move || {
-        crate::environment::menu::setup_menu_handler::<A>(cloned, None);
-    });
+    #[cfg(not(target_os = "ios"))]
+    {
+        let cloned = id;
+        Drops::action(cx, move || {
+            crate::environment::menu::setup_menu_handler::<A>(cloned, None);
+        });
+    }
 
     // Show the menu
     show_context_menu(window, event, menu, action_key);
@@ -314,6 +318,7 @@ fn show_context_menu_js<A>(
 }
 
 #[allow(unused)]
+#[cfg(not(target_os = "ios"))]
 fn show_context_menu_native<A>(
     window: AppWindow,
     event: &MouseData,
@@ -383,6 +388,7 @@ fn show_context_menu_native<A>(
     }
 }
 
+#[cfg(not(target_os = "ios"))]
 pub fn setup_menu_handler<A>(
     id: usize,
     schedule_update: Option<Arc<dyn Fn(MenuEventId) + Send + Sync>>,
