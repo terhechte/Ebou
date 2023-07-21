@@ -25,7 +25,7 @@
 		4D0596AB2A595525006A5274 /* libebou.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libebou.a; path = ../../libebou.a; sourceTree = "<group>"; };
 		65F6A780F0F6DA975CEFF926 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		65F9C0AF017093458E45F8E3 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
-		826DC4F1D2F14455DB1879DD /* mobile-demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mobile-demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		826DC4F1D2F14455DB1879DD /* Ebou.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ebou.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CFC552A3B5DA4A54B44CB07 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		9AEFB239C7A9EC18E95A50F7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		9F49DC04CD30C77CA3B9930C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -54,7 +54,7 @@
 		02B6CF0E53C6168074E149B0 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				F4439D35CC4F18881149AA57 /* mobile-demo */,
+				F4439D35CC4F18881149AA57 /* ebou-iOS */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -62,7 +62,7 @@
 		2B0A469CE9E684BF67BC337E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				826DC4F1D2F14455DB1879DD /* mobile-demo.app */,
+				826DC4F1D2F14455DB1879DD /* Ebou.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -98,22 +98,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F4439D35CC4F18881149AA57 /* mobile-demo */ = {
+		F4439D35CC4F18881149AA57 /* ebou-iOS */ = {
 			isa = PBXGroup;
 			children = (
 				4D0596AB2A595525006A5274 /* libebou.a */,
 				65F9C0AF017093458E45F8E3 /* main.mm */,
 				80151DA2DA60548AA13E106D /* bindings */,
 			);
-			path = "mobile-demo";
+			path = "ebou-iOS";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		132A95CAD4014B702334629C /* mobile-demo_iOS */ = {
+		132A95CAD4014B702334629C /* Ebou */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 330449A5662DA569DEB1F525 /* Build configuration list for PBXNativeTarget "mobile-demo_iOS" */;
+			buildConfigurationList = 330449A5662DA569DEB1F525 /* Build configuration list for PBXNativeTarget "Ebou" */;
 			buildPhases = (
 				E82F356F44BD0C6682116DA6 /* Sources */,
 				A4810609F3DFB02D5BAF79BE /* Resources */,
@@ -123,9 +123,9 @@
 			);
 			dependencies = (
 			);
-			name = "mobile-demo_iOS";
+			name = Ebou;
 			productName = "mobile-demo_iOS";
-			productReference = 826DC4F1D2F14455DB1879DD /* mobile-demo.app */;
+			productReference = 826DC4F1D2F14455DB1879DD /* Ebou.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -141,7 +141,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6C25C6D7D27FA9E86CDCF1D8 /* Build configuration list for PBXProject "mobile-demo" */;
+			buildConfigurationList = 6C25C6D7D27FA9E86CDCF1D8 /* Build configuration list for PBXProject "EbouiOS" */;
 			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -153,7 +153,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				132A95CAD4014B702334629C /* mobile-demo_iOS */,
+				132A95CAD4014B702334629C /* Ebou */,
 			);
 		};
 /* End PBXProject section */
@@ -192,7 +192,7 @@
 					"$(inherited)",
 					"\".\"",
 				);
-				INFOPLIST_FILE = "mobile-demo_iOS/Info.plist";
+				INFOPLIST_FILE = "ebou-iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -200,7 +200,7 @@
 				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = "$(inherited)";
 				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = "$(PROJECT_DIR)/**";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.stylemac.ebou-ipad";
-				PRODUCT_NAME = "mobile-demo";
+				PRODUCT_NAME = Ebou;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = arm64;
@@ -219,7 +219,7 @@
 					"$(inherited)",
 					"\".\"",
 				);
-				INFOPLIST_FILE = "mobile-demo_iOS/Info.plist";
+				INFOPLIST_FILE = "ebou-iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -227,7 +227,7 @@
 				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = "$(inherited)";
 				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.stylemac.ebou-ipad";
-				PRODUCT_NAME = "mobile-demo";
+				PRODUCT_NAME = Ebou;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = arm64;
@@ -358,7 +358,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		330449A5662DA569DEB1F525 /* Build configuration list for PBXNativeTarget "mobile-demo_iOS" */ = {
+		330449A5662DA569DEB1F525 /* Build configuration list for PBXNativeTarget "Ebou" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0C4059BC4BC502F92F4D1DB6 /* debug */,
@@ -367,7 +367,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = debug;
 		};
-		6C25C6D7D27FA9E86CDCF1D8 /* Build configuration list for PBXProject "mobile-demo" */ = {
+		6C25C6D7D27FA9E86CDCF1D8 /* Build configuration list for PBXProject "EbouiOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CDE604821D04F41C691421E5 /* debug */,

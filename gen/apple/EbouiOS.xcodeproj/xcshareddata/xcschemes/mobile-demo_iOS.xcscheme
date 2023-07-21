@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "132A95CAD4014B702334629C"
-               BuildableName = "mobile-demo.app"
-               BlueprintName = "mobile-demo_iOS"
-               ReferencedContainer = "container:mobile-demo.xcodeproj">
+               BuildableName = "EbouiOS.app"
+               BlueprintName = "Ebou"
+               ReferencedContainer = "container:EbouiOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -31,9 +31,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "132A95CAD4014B702334629C"
-            BuildableName = "mobile-demo.app"
-            BlueprintName = "mobile-demo_iOS"
-            ReferencedContainer = "container:mobile-demo.xcodeproj">
+            BuildableName = "EbouiOS.app"
+            BlueprintName = "Ebou"
+            ReferencedContainer = "container:EbouiOS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <EnvironmentVariables>
@@ -66,9 +66,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "132A95CAD4014B702334629C"
-            BuildableName = "mobile-demo.app"
-            BlueprintName = "mobile-demo_iOS"
-            ReferencedContainer = "container:mobile-demo.xcodeproj">
+            BuildableName = "EbouiOS.app"
+            BlueprintName = "Ebou"
+            ReferencedContainer = "container:EbouiOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <EnvironmentVariables>
@@ -95,9 +95,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "132A95CAD4014B702334629C"
-            BuildableName = "mobile-demo.app"
-            BlueprintName = "mobile-demo_iOS"
-            ReferencedContainer = "container:mobile-demo.xcodeproj">
+            BuildableName = "EbouiOS.app"
+            BlueprintName = "Ebou"
+            ReferencedContainer = "container:EbouiOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <EnvironmentVariables>
