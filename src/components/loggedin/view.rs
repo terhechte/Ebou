@@ -14,7 +14,9 @@ use crate::environment::{model::Model, Environment};
 
 use super::RootReducer;
 use super::ViewStore;
-use crate::components::sidebar::{SidebarAction, SidebarComponent, SidebarReducer, SidebarState};
+use crate::components::sidebar::{
+    SidebarAction, SidebarComponent, SidebarNavigationComponent, SidebarReducer, SidebarState,
+};
 use crate::widgets::*;
 use crate::{PublicAction, StatusMutation};
 use navicula::reducer::{ChildReducer, Reducer};
@@ -155,6 +157,9 @@ fn MainComponent<'a>(cx: Scope<'a>, store: ViewStore<'a>) -> Element<'a> {
     } else if store.logged_in {
         cx.render(rsx! {
             SplitViewComponent {
+                navbar: cx.render(rsx!(SidebarNavigationComponent {
+                    store: store.host(cx, SidebarState::default)
+                })),
                 sidebar: cx.render(
                     rsx!(
                         SidebarComponent {

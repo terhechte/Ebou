@@ -147,6 +147,18 @@ impl SidebarState {
             .unwrap_or_default();
         !self.no_more_load_more.contains(&id)
     }
+
+    /// if we're in a section and have a selection in the section, then
+    /// return true so the section can be collapsed
+    pub fn current_section_selection(&self) -> bool {
+        match self.active_tab {
+            // More is always collapsed
+            UiTab::More => false,
+            UiTab::Timeline => self.selected_account.is_some(),
+            UiTab::Mentions => self.selected_notifications.is_some(),
+            UiTab::Messages => false,
+        }
+    }
 }
 
 pub fn reduce<'a>(

@@ -1,63 +1,20 @@
 #![allow(non_snake_case)]
 use dioxus::prelude::*;
 
-const STYLE: &str = r#"
-    .sb-main {
-        width: 100%;
-        height: 100vh;
-        display: flex;
-        user-select: none;
-    }
-    .sb-sidebar {
-        box-sizing: border-box;
-        flex-shrink: 0;
-        height: 100vh;
-        width: 290px;
-        min-width: 190px;
-        max-width: 450px;
-    }
-    .sb-resize {
-        box-sizing: border-box;
-        width: 5px;
-        flex: 0 0 auto;
-        cursor: ew-resize;
-        padding: 0;
-        user-select: none;
-        -webkit-user-select: none;
-        /*background-color: var(--g-backgroundWindow);*/
-        background-color: transparent;
-        border-right: 1px solid #000;
-    }
-    .sb-content {
-        flex-grow: 1;
-        box-sizing: border-box;
-        height: 100%;
-    }
-    .sb-is-resizing * {
-        user-select: none;
-        -webkit-user-select: none;
-        pointer-events: none;
-    }
-    .sb-resize.sb-is-resizing {
-        border-right: 1px solid var(--g-selectedContentBackgroundColor);
-    }
-    .sb-resize:hover {
-        border-right: 2px solid #333;
-    }
-    /* .sb-resize.sb-is-resizing {
-        background-color: var(--g-selectedContentBackgroundColor);
-    }*/
-    "#;
-
 #[inline_props]
 pub fn SplitViewComponent<'a>(
     cx: Scope<'a>,
+    navbar: Option<Element<'a>>,
     sidebar: Element<'a>,
     content: Element<'a>,
 ) -> Element<'a> {
-    let style_html = format!("<style>{STYLE}</style>");
-
-    let size: &UseState<Option<f64>> = use_state(cx, || Some(290.));
+    let size: &UseState<Option<f64>> = use_state(cx, || {
+        if cfg!(target_os = "ios") {
+            None
+        } else {
+            Some(290.)
+        }
+    });
     let is_resizing = use_state(cx, || false);
     cx.render(rsx!(
         div {
@@ -73,12 +30,22 @@ pub fn SplitViewComponent<'a>(
                     size.set(Some(value))
                 }
             },
-            div { dangerous_inner_html: "{style_html}" }
+            navbar.as_ref().map(|navbar| rsx!(NavBarComponent { navbar }))
             SidebarComponent { size: size.clone(), is_resizing: is_resizing.clone(), sidebar }
             ResizeComponent { size: size, is_resizing: is_resizing }
             ContentComponent { is_resizing: is_resizing.clone(), content }
         }
     ))
+}
+
+#[inline_props]
+fn NavBarComponent<'a>(cx: Scope<'a>, children: Element<'a>) -> Element<'a> {
+    render! {
+        div {
+            class: "sb-navbar",
+            children
+        }
+    }
 }
 
 #[inline_props]
@@ -105,6 +72,10 @@ fn ResizeComponent<'a>(
     size: &'a UseState<Option<f64>>,
     is_resizing: &'a UseState<bool>,
 ) -> Element<'a> {
+    // on iPad OS do nothing
+    if cfg!(target_os = "ios") {
+        return cx.render(rsx!(div {}));
+    }
     let class = is_resizing.then(|| "sb-is-resizing").unwrap_or_default();
     cx.render(rsx!(div {
         class: "sb-resize {class}",

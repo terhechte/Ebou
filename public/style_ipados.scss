@@ -8,21 +8,34 @@ body {
     border-top: 1px solid var(--g-separatorColorDark);
 }
 
-.sb-sidebar.collapsed {
-    width: 70px !important;
-    min-width: 70px !important;
-    max-width: 70px !important;
+.sb-sidebar {
+    width: unset;
+    min-width: unset;
+    max-width: unset;
+    background-color: var(--g-backgroundBase4);
 }
 
-.sb-sidebar.collapsed .account-preview-fields {
+.sb-sidebar .sidebar {
+    width: 290px;
+    min-width: 290px;
+    max-width: 290px;
+}
+
+.sb-sidebar .sidebar.collapsed .account-preview-fields {
     display: none;
 }
 
-.sb-sidebar.collapsed select {
+.sb-sidebar .sidebar.collapsed {
+    width: 80px !important;
+    min-width: 80px !important;
+    max-width: 80px !important;
+}
+
+.sb-sidebar .sidebar.collapsed select {
     display: none;
 }
 
-.sb-sidebar.collapsed>div.sidebar>div>input {
+.sb-sidebar>div.sidebar.collapsed>div>input {
     display: none;
 }
 
@@ -68,4 +81,25 @@ input {
 
 .conversation-child {
     border-radius: 16px;
+}
+
+.image-author-small {
+    width: 32px;
+    height: 32px;
+}
+
+/* Override the selection for cells in a collapsed context */
+
+.sidebar.collapsed .cell.selected {
+    background-color: unset;
+}
+
+.sidebar.collapsed .cell .image-author {
+    border-radius: 8px;
+    border: 2px solid transparent;
+}
+
+.sidebar.collapsed .cell.selected .image-author {
+    border-radius: 8px;
+    border: 2px solid white;
 }

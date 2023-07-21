@@ -13,11 +13,98 @@ use crate::{
     view_model::{AccountUpdateViewModel, AccountViewModel},
     widgets::*,
 };
-use dioxus::prelude::*;
+use dioxus::{html::br, prelude::*};
 use itertools::Itertools;
 
 use crate::components::loggedin::Action;
 use crate::PublicAction;
+
+/// Custom sidebar navigation for iPadOS
+#[inline_props]
+pub fn SidebarNavigationComponent<'a>(cx: Scope<'a>, store: ViewStore<'a>) -> Element<'a> {
+    log::trace!("Rerender SidebarComponent");
+    let has_notifications = store.has_new_notifications;
+    let has_messages = false; // FIXME
+    let tab = store.active_tab;
+    let tabs = vec![
+        TabBarItem::new(
+            UiTab::Timeline,
+            loc!("Timelines").to_string(),
+            tab.is_timeline(),
+            false,
+        ),
+        TabBarItem::new(
+            UiTab::Mentions,
+            loc!("Mentions").to_string(),
+            tab.is_mentions(),
+            has_notifications,
+        ),
+        TabBarItem::new(
+            UiTab::Messages,
+            loc!("Messages").to_string(),
+            tab.is_messages(),
+            has_messages,
+        ),
+        TabBarItem::new(UiTab::More, loc!("More").to_string(), tab.is_more(), false),
+    ];
+
+    let icon = crate::icons::ICON_WRITE;
+
+    render! {
+        div {
+            class: "side-navigation-bar",
+            // first the user icon
+            AccountImageComponent { store: store }
+            // then the tabs
+            // and at the bottom a pref button for the preferences
+            div {
+                br {}
+            }
+            tabs.into_iter().map(|btn| rsx!(SidebarNavButton { store: store, item: btn }))
+
+            div {
+                class: "mb-auto"
+            }
+
+            button {
+                class: "sidebar-nav-button",
+                margin_bottom: "80px",
+                onclick: move |_| {
+                    store.send(SidebarAction::Root(Action::AppEvent(AppEvent::MenuEvent(MainMenuEvent::NewPost))));
+                },
+                div {
+                    class: "icon-button",
+                    dangerous_inner_html: "{icon}"
+                }
+            }
+        }
+    }
+}
+
+#[inline_props]
+fn SidebarNavButton<'a>(cx: Scope<'a>, store: &'a ViewStore<'a>, item: TabBarItem) -> Element<'a> {
+    let icon = match item.id {
+        UiTab::Timeline => crate::icons::ICON_PROFILE,
+        UiTab::Mentions => crate::icons::ICON_RELOAD,
+        UiTab::Messages => crate::icons::ICON_OPEN_WINDOW,
+        UiTab::More => crate::icons::ICON_MORE,
+    };
+    let class = item.selected.then_some("selected").unwrap_or_default();
+    let dot = item.dot.then(|| rsx!(span { class: "dot" }));
+    cx.render(rsx!(
+        button {
+            class: "sidebar-nav-button {class}",
+            onclick: move |_| {
+                store.send(SidebarAction::ChangeTab(item.id));
+            },
+            div {
+                class: "icon-button",
+                dangerous_inner_html: "{icon}"
+            }
+            dot
+        }
+    ))
+}
 
 #[inline_props]
 pub fn SidebarComponent<'a>(cx: Scope<'a>, store: ViewStore<'a>) -> Element<'a> {
@@ -53,9 +140,18 @@ pub fn SidebarComponent<'a>(cx: Scope<'a>, store: ViewStore<'a>) -> Element<'a> 
     #[cfg(not(target_os = "macos"))]
     let is_not_macos = true;
 
+    #[cfg(target_os = "ios")]
+    let is_not_macos = false;
+
+    let col_class = if store.current_section_selection() {
+        "collapsed"
+    } else {
+        ""
+    };
+
     let cloned_tabs = tabs.clone();
     cx.render(rsx! {
-        VStack { class: "sidebar",
+        VStack { class: "sidebar {col_class}",
             is_not_macos.then(|| rsx! {
                 MenuComponent { store: store }
 
@@ -286,6 +382,57 @@ fn SidebarNotificationsComponent<'a>(cx: Scope<'a>, store: &'a ViewStore<'a>) ->
             Spinner {}
         }))}
     })
+}
+
+#[inline_props]
+fn AccountImageComponent<'a>(cx: Scope<'a>, store: &'a ViewStore<'a>) -> Element<'a> {
+    let img = store
+        .user_account
+        .as_ref()
+        .map(|i| {
+            rsx!(img {
+                onclick: move |evt| {
+                    store.context_menu(
+                        cx,
+                        &evt,
+                        menu::ContextMenu::<SidebarAction>::new(
+                            "Account Options",
+                            true,
+                            vec![
+                                menu::ContextMenuItem::item(
+                                    "Open in Browser",
+                                    SidebarAction::Root(Action::Public(PublicAction::OpenLink(
+                                        i.url.clone(),
+                                    ))),
+                                ),
+                                menu::ContextMenuItem::item(
+                                    "Copy URL",
+                                    SidebarAction::Root(Action::Public(PublicAction::Copy(
+                                        i.url.clone(),
+                                    ))),
+                                ),
+                                menu::ContextMenuItem::separator(),
+                                menu::ContextMenuItem::item(
+                                    "Logout",
+                                    SidebarAction::Root(Action::Logout),
+                                ),
+                            ],
+                        ),
+                    )
+                },
+                class: "image-author-small",
+                src: "{i.avatar_static}"
+            })
+        })
+        .unwrap_or_else(|| {
+            rsx!(span {
+                style: "display: inline-block",
+                class: "image-author-small"
+            })
+        });
+    render! {
+        img
+    }
 }
 
 #[inline_props]

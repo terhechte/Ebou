@@ -31,6 +31,11 @@ mod ios;
 pub use self::ios::*;
 
 pub fn is_fullscreen<'a>(window: &'a AppWindow<'a>) -> bool {
+    // on iPadOS we're always fullscreen
+    #[cfg(target_os = "ios")]
+    return true;
+
+    #[cfg(not(target_os = "ios"))]
     window.fullscreen().is_some()
 }
 

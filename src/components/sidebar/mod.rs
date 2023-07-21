@@ -2,7 +2,7 @@ mod reducer;
 mod view;
 
 pub use reducer::{MoreSelection, SidebarAction, SidebarDelegateAction, SidebarState};
-pub use view::SidebarComponent;
+pub use view::{SidebarComponent, SidebarNavigationComponent};
 
 pub struct SidebarReducer;
 use navicula::reducer::Reducer;
