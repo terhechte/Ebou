@@ -67,7 +67,9 @@ pub fn reduce<'a>(
             async move {
                 let mut m = Vec::new();
                 for i in images {
-                    if let Some(p) = crate::environment::platform::read_file_to_attachment(&i) {
+                    if let Some(p) =
+                        crate::environment::platform::read_file_to_attachment(&i, false)
+                    {
                         m.push(p)
                     }
                 }
@@ -87,7 +89,7 @@ pub fn reduce<'a>(
         }
         PostAction::FileDialog => {
             let f = crate::environment::platform::open_file_dialog("~");
-            Effect::action(PostAction::FileDialogDone(f))
+            Effect::future(f, PostAction::FileDialogDone)
         }
         PostAction::FileDialogDone(result) => {
             if let Some(image) = result {
@@ -207,7 +209,7 @@ pub fn reduce<'a>(
                         let mut m = Vec::new();
                         for i in cloned {
                             if let Some(p) =
-                                crate::environment::platform::read_file_to_attachment(&i)
+                                crate::environment::platform::read_file_to_attachment(&i, false)
                             {
                                 m.push(p)
                             }

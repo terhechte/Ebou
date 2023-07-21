@@ -102,6 +102,8 @@ sha2 = "0.10.6"
 env_logger = "0.10.0"
 cocoa = "0.25.0"
 objc = "0.2"
+file-picker-ios = { git = "https://github.com/terhechte/file-picker-ios" }
+#file-picker-ios = { path = "/Users/terhechte/Development/temporary/file-picker-ios" }
 
 
 [profile.release]

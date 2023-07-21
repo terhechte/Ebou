@@ -13,6 +13,7 @@
 		11ABC9571B8F985F507BEEF8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F49DC04CD30C77CA3B9930C /* QuartzCore.framework */; };
 		162947F857C9B345D3CBA75B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AEFB239C7A9EC18E95A50F7 /* Security.framework */; };
 		4D0596AC2A595526006A5274 /* libebou.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D0596AB2A595525006A5274 /* libebou.a */; };
+		4D22AE5C2A6AB02300B96D1A /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D22AE5B2A6AB02300B96D1A /* UniformTypeIdentifiers.framework */; };
 		612D6A9DA68D09F9534DFBCE /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2E9DF7DA19A6EC6F81E1F5C /* WebKit.framework */; };
 		A22F8C505AF6C74B41AB5054 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 65F9C0AF017093458E45F8E3 /* main.mm */; };
 		E07E0D7419E11153B1341F55 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EDAE5284350D2B012AAF51B /* UIKit.framework */; };
@@ -23,6 +24,7 @@
 		23BC5DE93C6B0A904FA36D7D /* bindings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bindings.h; sourceTree = "<group>"; };
 		3EDAE5284350D2B012AAF51B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4D0596AB2A595525006A5274 /* libebou.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libebou.a; path = ../../libebou.a; sourceTree = "<group>"; };
+		4D22AE5B2A6AB02300B96D1A /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
 		65F6A780F0F6DA975CEFF926 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		65F9C0AF017093458E45F8E3 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		826DC4F1D2F14455DB1879DD /* Ebou.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ebou.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -40,6 +42,7 @@
 				0A7473672EB748D677CA3D30 /* CoreGraphics.framework in Frameworks */,
 				4D0596AC2A595526006A5274 /* libebou.a in Frameworks */,
 				109FCA008C5E5B321103BA8B /* Metal.framework in Frameworks */,
+				4D22AE5C2A6AB02300B96D1A /* UniformTypeIdentifiers.framework in Frameworks */,
 				0A8EA548A68092FB57CF98FC /* MetalKit.framework in Frameworks */,
 				11ABC9571B8F985F507BEEF8 /* QuartzCore.framework in Frameworks */,
 				162947F857C9B345D3CBA75B /* Security.framework in Frameworks */,
@@ -87,6 +90,7 @@
 		BA68908391A49C1796017C3C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4D22AE5B2A6AB02300B96D1A /* UniformTypeIdentifiers.framework */,
 				8CFC552A3B5DA4A54B44CB07 /* CoreGraphics.framework */,
 				078C6E0C3D84204C09B8C060 /* Metal.framework */,
 				65F6A780F0F6DA975CEFF926 /* MetalKit.framework */,

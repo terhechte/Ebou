@@ -1134,6 +1134,7 @@ dependencies = [
  "dotenvy_macro",
  "enumset",
  "env_logger",
+ "file-picker-ios",
  "flume",
  "futures-channel",
  "futures-util",
@@ -1335,6 +1336,19 @@ checksum = "1e1c54951450cbd39f3dbcf1005ac413b49487dabf18a720ad2383eccfeffb92"
 dependencies = [
  "memoffset 0.6.5",
  "rustc_version 0.3.3",
+]
+
+[[package]]
+name = "file-picker-ios"
+version = "0.1.0"
+source = "git+https://github.com/terhechte/file-picker-ios#658da990897a9fc10ffd6f090ab0971be9a4a2d9"
+dependencies = [
+ "cc",
+ "objc",
+ "pin-project",
+ "stable_deref_trait",
+ "tokio",
+ "tokio-stream",
 ]
 
 [[package]]
@@ -4434,6 +4448,18 @@ dependencies = [
  "rustls",
  "tokio",
  "webpki",
+]
+
+[[package]]
+name = "tokio-stream"
+version = "0.1.14"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "397c988d37662c7dda6d2208364a706264bf3d6138b11d436cbac0ad38832842"
+dependencies = [
+ "futures-core",
+ "pin-project-lite",
+ "tokio",
+ "tokio-util",
 ]
 
 [[package]]

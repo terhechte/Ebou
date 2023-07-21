@@ -104,7 +104,7 @@ pub fn temporary_directory() -> Option<std::path::PathBuf> {
 }
 
 #[cfg(not(target_os = "ios"))]
-pub fn open_file_dialog(directory: &str) -> Option<view_model::AttachmentMedia> {
+pub async fn open_file_dialog(directory: &str) -> Option<view_model::AttachmentMedia> {
     use rfd::FileDialog;
     let file = FileDialog::new()
         .add_filter("image", SUPPORTED_IMAGE_TYPES)
@@ -114,12 +114,35 @@ pub fn open_file_dialog(directory: &str) -> Option<view_model::AttachmentMedia> 
 
     let file = file?;
 
-    read_file_to_attachment(&file)
+    read_file_to_attachment(&file, false)
 }
 
 #[cfg(target_os = "ios")]
-pub fn open_file_dialog(_directory: &str) -> Option<view_model::AttachmentMedia> {
-    None
+pub async fn open_file_dialog(_directory: &str) -> Option<view_model::AttachmentMedia> {
+    println!("open file dialog");
+    let supported_types = {
+        let mut types = Vec::new();
+        types.extend_from_slice(SUPPORTED_IMAGE_TYPES);
+        types.extend_from_slice(SUPPORTED_VIDEO_TYPES);
+        types
+    };
+
+    use file_picker_ios::pick_file_root;
+    let filehandle = pick_file_root(&supported_types).await?;
+
+    // write to a temporary location
+    let temp_dir = temporary_directory()?;
+    let file = temp_dir.join(filehandle.filename());
+
+    match tokio::fs::write(&file, filehandle.data()).await {
+        Ok(_) => (),
+        Err(e) => {
+            log::error!("Could not write file to temporary location: {e:?}");
+            return None;
+        }
+    }
+
+    read_file_to_attachment(&file, true)
 }
 
 pub const SUPPORTED_IMAGE_TYPES: &[&str] = &["png", "jpg", "jpeg", "gif"];
@@ -137,7 +160,10 @@ pub fn supported_file_types(files: &[PathBuf]) -> Vec<PathBuf> {
     collected
 }
 
-pub fn read_file_to_attachment(path: &PathBuf) -> Option<view_model::AttachmentMedia> {
+pub fn read_file_to_attachment(
+    path: &PathBuf,
+    is_already_copied: bool,
+) -> Option<view_model::AttachmentMedia> {
     let is_image = if let Some(ext) = path.extension().and_then(|e| e.to_str()) {
         ["png", "jpeg", "jpg", "gif"].contains(&ext)
     } else {
@@ -173,18 +199,23 @@ pub fn read_file_to_attachment(path: &PathBuf) -> Option<view_model::AttachmentM
         None
     };
 
-    // copy the actual file to a temporary place
-    // if that fails, just use the current path and hope for the best
-    let new_path = if let Some(base_path) = temporary_directory() {
-        let new_path = base_path.join(&name);
-        if let Err(e) = std::fs::copy(path, &new_path) {
-            log::error!("Could not copy file: {e:?}");
-            path.clone()
-        } else {
-            new_path
-        }
-    } else {
+    let new_path = if is_already_copied {
         path.clone()
+    } else {
+        // copy the actual file to a temporary place
+        // if that fails, just use the current path and hope for the best
+        let new_path = if let Some(base_path) = temporary_directory() {
+            let new_path = base_path.join(&name);
+            if let Err(e) = std::fs::copy(path, &new_path) {
+                log::error!("Could not copy file: {e:?}");
+                path.clone()
+            } else {
+                new_path
+            }
+        } else {
+            path.clone()
+        };
+        new_path
     };
 
     // if the data is an image, provide a preview
