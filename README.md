@@ -130,7 +130,7 @@ Linux requires a couple of additional dependencies.
 #### Debian
 
 ``` sh
-sudo apt-get install pkg-config libssl-dev libgtk-3-dev xdotool libwebkit2gtk-4.1-dev libgtk-3-0 libgtk-3-dev
+sudo apt-get install pkg-config libssl-dev libgtk-3-dev xdotool libwebkit2gtk-4.1-dev libgtk-3-0 libgtk-3-dev libxdo-dev
 ```
 
 ### Arch
