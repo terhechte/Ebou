@@ -37,6 +37,10 @@ Windows Beta:
 
 <img src="website/images/windows.png" width="800" />
 
+Linux Beta:
+
+<img src="website/images/linux.jpg" width="800" />
+
 ## State
 
 Ebou is currently in a beta state. There're bugs, and there're missing features. Here's a list of currently supported Mastodon features:
