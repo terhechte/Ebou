@@ -26,7 +26,7 @@ dioxus = { git = "https://github.com/DioxusLabs/dioxus", ref = "388fb30" }
 dioxus-desktop = { git = "https://github.com/DioxusLabs/dioxus", ref = "388fb30" }
 tokio = { version = "1", features = ["full"] }
 webbrowser = "0.8.9"
-muda = "0.6.0"
+muda = { git = "https://github.com/terhechte/muda", branch = "macos_fixes2"}
 futures-util = "0.3.21"
 reqwest = { version = "0.11", features = ["json"] }
 dotenvy_macro = "0.15.1"

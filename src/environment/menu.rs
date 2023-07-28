@@ -227,7 +227,6 @@ fn show_context_menu<A>(
     {
         use dioxus_desktop::wry::webview::WebviewExtMacOS;
         use objc::runtime::Object;
-        let scale_factor = window.scale_factor();
         let vx = window.webview.webview();
         let _pos = event.client_coordinates();
 
@@ -242,7 +241,9 @@ fn show_context_menu<A>(
             p
         };
 
-        context_menu.show_context_menu_for_nsview(vx as _, xp.x * scale_factor, xp.y * scale_factor)
+        use muda::{LogicalPosition, Position};
+        let p = Position::Logical(LogicalPosition { x: xp.x, y: xp.y });
+        context_menu.show_context_menu_for_nsview(vx as _, Some(p))
     }
     #[cfg(target_os = "windows")]
     unsafe {
@@ -266,7 +267,25 @@ fn show_context_menu<A>(
                 (pos.x, pos.y)
             }
         };
-        context_menu.show_context_menu_for_hwnd(hwnd.0, pos.0, pos.1);
+        use muda::{LogicalPosition, Position};
+        let p = Position::Logical(LogicalPosition {
+            x: pos.0 as f64,
+            y: pos.1 as f64,
+        });
+        context_menu.show_context_menu_for_hwnd(hwnd.0, Some(p));
+    }
+    #[cfg(target_os = "linux")]
+    {
+        use dioxus_desktop::tao::platform::unix::WindowExtUnix;
+        let gtk_window = window.webview.window().gtk_window();
+        let pos = event.client_coordinates();
+        context_menu.show_context_menu_for_gtk_window(
+            &gtk_window,
+            Some(muda::Position::Logical(muda::LogicalPosition {
+                x: pos.x,
+                y: pos.y,
+            })),
+        );
     }
 }
 

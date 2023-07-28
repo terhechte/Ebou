@@ -6,7 +6,11 @@ pub fn EmojiButton(cx: Scope<'_>) -> Element<'_> {
     #[cfg(target_os = "windows")]
     return cx.render(rsx!({}));
 
-    #[cfg(not(target_os = "windows"))]
+    // same on linux
+    #[cfg(target_os = "linux")]
+    return cx.render(rsx!({}));
+
+    #[cfg(target_os = "macos")]
     {
         use navicula::types::AppWindow;
         let window = AppWindow::retrieve(cx);
