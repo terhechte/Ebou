@@ -269,8 +269,8 @@ fn show_context_menu<A>(
         };
         use muda::{LogicalPosition, Position};
         let p = Position::Logical(LogicalPosition {
-            x: pos.0 as i32,
-            y: pos.1 as i32,
+            x: pos.0 as f64,
+            y: pos.1 as f64,
         });
         context_menu.show_context_menu_for_hwnd(hwnd.0, Some(p));
     }
