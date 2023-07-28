@@ -268,6 +268,19 @@ fn show_context_menu<A>(
         };
         context_menu.show_context_menu_for_hwnd(hwnd.0, pos.0, pos.1);
     }
+    #[cfg(target_os = "linux")]
+    {
+        use dioxus_desktop::tao::platform::unix::WindowExtUnix;
+        let gtk_window = window.webview.window().gtk_window();
+        let pos = event.client_coordinates();
+        context_menu.show_context_menu_for_gtk_window(
+            &gtk_window,
+            Some(muda::Position::Logical(muda::LogicalPosition {
+                x: pos.x,
+                y: pos.y,
+            })),
+        );
+    }
 }
 
 pub fn setup_menu_handler<A>(

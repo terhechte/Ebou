@@ -1107,7 +1107,7 @@ dependencies = [
  "id_tree",
  "im",
  "image",
- "itertools 0.11.0",
+ "itertools",
  "lazy_static",
  "linkify",
  "log",
@@ -2251,15 +2251,6 @@ dependencies = [
 
 [[package]]
 name = "itertools"
-version = "0.10.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b0fd2260e829bddf4cb6ea802289de2f86d6a7a690192fbe91b3f46e0f2c8473"
-dependencies = [
- "either",
-]
-
-[[package]]
-name = "itertools"
 version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b1c173a5686ce8bfa551b3563d0c2170bf24ca44da99c7ca4bfdab5418c3fe57"
@@ -2669,11 +2660,11 @@ dependencies = [
 
 [[package]]
 name = "muda"
-version = "0.6.0"
+version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a0b141f55dd7831b7c1c0e9551165f6eee87021a356a437c00f3bdc2aeafc3ec"
+checksum = "0294ee1db0c35b1a2d3fea0bcc66aaea00d4b9693c7b3228865baefdd48850e8"
 dependencies = [
- "cocoa 0.24.1",
+ "cocoa 0.25.0",
  "crossbeam-channel",
  "gdk",
  "gdk-pixbuf",
@@ -2726,7 +2717,7 @@ dependencies = [
  "futures-channel",
  "futures-util",
  "fxhash",
- "itertools 0.10.5",
+ "itertools",
  "log",
  "serde_json",
  "tokio",
