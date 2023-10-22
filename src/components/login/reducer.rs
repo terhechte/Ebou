@@ -1,4 +1,4 @@
-use std::cell::RefCell;
+use std::{cell::RefCell, fmt::Error};
 
 use crate::environment::{
     model::{Account, AppData, Model, TokenData},
@@ -116,7 +116,9 @@ pub fn reduce<'a>(
                 Ok(n) => {
                     state.model = Some(ModelContainer::new(n.id.clone(), model));
                     if let Some(ref url) = n.url {
-                        environment.open_url(url)
+                        _ = webbrowser::open(url).or_else(|err| {
+                            std::io::Result::Ok(state.error_message = Some(format!("Could not open browser: {err:?}")))
+                        });
                     }
                     state.app_data = Some(n);
                 }
