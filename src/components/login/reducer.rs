@@ -115,11 +115,13 @@ pub fn reduce<'a>(
             match result {
                 Ok(n) => {
                     state.model = Some(ModelContainer::new(n.id.clone(), model));
-                    if let Some(ref url) = n.url {
-                        _ = webbrowser::open(url).or_else(|err| {
-                            std::io::Result::Ok(state.error_message = Some(format!("Could not open browser: {err:?}")))
-                        });
-                    }
+                    state.error_message = n.url.as_ref()
+                        .map_or_else(|| Some(format!("no login URL provided")),
+                        |ref tokenUrl| { 
+                        webbrowser::open(tokenUrl)
+                                    .map_or_else(|e| Some(format!("could not open browser: {e:?}")),
+                                        |_| None)
+                    });
                     state.app_data = Some(n);
                 }
                 Err(e) => state.error_message = Some(format!("Mastodon Error: {e:?}")),
