@@ -305,8 +305,12 @@ fn Page2<'a>(
                     style: "text-decoration: underline; cursor: pointer;",
                     onclick: move |_| {
                         if let Some(url) = view_store.app_data.as_ref().and_then(|e| e.url.clone()) {
-                             let mut ctx = copypasta::ClipboardContext::new().expect("could not open clipboard context");
-                             let _ = ctx.set_contents(url);
+                             _ = match copypasta::ClipboardContext::new() {
+                                Ok(mut ctx) => ctx.set_contents(url).map_or_else(
+                                    |e| Some(format!("could not copy url: {e:?}")),
+                                    |_| None),
+                                Err(e) => Some(format!("could not access clipboard: {e:?}"))
+                            };
                         }
                     },
                     loc!("Copy the browser URL to the clipboard")
