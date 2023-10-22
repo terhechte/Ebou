@@ -64,7 +64,7 @@ impl Environment {
     }
 
     pub fn open_url(&self, url: &str) {
-        let _ = webbrowser::open(url);
+        webbrowser::open(url).expect("could not open browser");
     }
 
     pub fn open_window<S: OpenWindowState + 'static, Action: 'static>(
