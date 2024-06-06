@@ -134,7 +134,13 @@ Linux requires a couple of additional dependencies.
 #### Debian
 
 ``` sh
-sudo apt-get install pkg-config libssl-dev libgtk-3-dev xdotool libwebkit2gtk-4.1-dev libgtk-3-0 libgtk-3-dev libxdo-dev
+sudo apt-get install pkg-config libssl-dev libgtk-3-dev xdotool libwebkit2gtk-4.1-dev libgtk-3-0 libxdo-dev
+```
+
+#### Fedora
+
+```sh
+sudo dnf install pkgconf libxdo-devel libsoup3-devel webkit2gtk4.1-devel javascriptcoregtk4.1-devel gtk3-devel
 ```
 
 ### Arch
