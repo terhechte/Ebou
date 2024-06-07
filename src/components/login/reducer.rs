@@ -1,4 +1,4 @@
-use std::cell::RefCell;
+use std::{cell::RefCell, fmt::Error};
 
 use crate::environment::{
     model::{Account, AppData, Model, TokenData},
@@ -115,9 +115,13 @@ pub fn reduce<'a>(
             match result {
                 Ok(n) => {
                     state.model = Some(ModelContainer::new(n.id.clone(), model));
-                    if let Some(ref url) = n.url {
-                        environment.open_url(url)
-                    }
+                    state.error_message = n.url.as_ref()
+                        .map_or_else(|| Some(format!("no login URL provided")),
+                        |ref tokenUrl| { 
+                        webbrowser::open(tokenUrl)
+                                    .map_or_else(|e| Some(format!("could not open browser: {e:?}")),
+                                        |_| None)
+                    });
                     state.app_data = Some(n);
                 }
                 Err(e) => state.error_message = Some(format!("Mastodon Error: {e:?}")),
